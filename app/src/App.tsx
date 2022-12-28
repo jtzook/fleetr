@@ -2,7 +2,11 @@ import { AppShell, Header, MantineProvider, Navbar } from "@mantine/core";
 
 export default function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      theme={{ colorScheme: "dark" }}
+      withGlobalStyles
+      withNormalizeCSS
+    >
       <AppShell
         padding="md"
         navbar={
