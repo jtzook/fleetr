@@ -1,10 +1,6 @@
-import {
-  AppShell,
-  Footer,
-  Header,
-  MantineProvider,
-  Navbar,
-} from '@mantine/core'
+import { AppShell, Footer, Header, MantineProvider } from '@mantine/core'
+
+import HomePage from './pages/HomePage'
 
 export default function App() {
   return (
@@ -17,12 +13,12 @@ export default function App() {
         padding='md'
         header={
           <Header height={80} p='xs'>
-            Header
+            {''}
           </Header>
         }
         footer={
           <Footer height={80} p='xs'>
-            Footer
+            {''}
           </Footer>
         }
         styles={(theme) => ({
@@ -34,7 +30,7 @@ export default function App() {
           },
         })}
       >
-        Home Page
+        <HomePage />
       </AppShell>
     </MantineProvider>
   )
