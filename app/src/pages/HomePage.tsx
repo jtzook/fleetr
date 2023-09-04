@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 import { ScrollArea, Button, Stack, Group, Paper } from '@mantine/core'
 
+import Slide from '../components/Slide'
+
 export default function HomePage() {
   const viewport = useRef<HTMLDivElement>(null)
 
@@ -38,9 +40,9 @@ export default function HomePage() {
             width: 600,
           }}
         >
-          <p>
+          <Slide>
             私たちは多くの場合、動機付けが不明確な行動について語りますが、そのような行動は、概して認識された結果につながる可能性があるという共通の認識に基づいています。私たちの多くが仕事や生活の各側面で迅速な決断を下す一方で、しばしばその影響を深く考える時間がありません。この種の短期的な視点は、長期的な成功には有益でない場合が多いです。
-          </p>
+          </Slide>
           <p>
             しかし、目の前の課題に集中することの重要性は、多くの場合、過小評価されています。このような瞬間瞬間の選択は、総合的な成果に大きな影響を与えることがあるからです。実際には、多くの成功したプロジェクトや企業は、一貫した努力と持続可能な戦略によって成り立っています。従って、短期的な成功と長期的な成功のバランスを見つけることが重要です
           </p>
