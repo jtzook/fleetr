@@ -9,7 +9,7 @@ export default function Slide({ children }: { children: React.ReactNode }) {
         fontSize: '2rem',
         fontWeight: 700,
         color: 'white',
-        background: 'rgba(0, 0, 0, .25)',
+        background: 'rgb(20, 21, 23)',
       }}
     >
       {children}
