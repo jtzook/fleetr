@@ -1,2 +1,3 @@
-# tweet-viewer
-Web app with carousel to view and manage tweets
+# Slides
+
+Web app with carousel to view and edit private posts.
