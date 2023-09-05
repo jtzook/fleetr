@@ -40,6 +40,7 @@ const Slide: React.FC<SlideProps> = ({ note }) => {
         style={{
           height: slideHeight,
           overflowY: 'auto',
+          padding: 28,
         }}
       >
         <h1>{note.title}</h1>
