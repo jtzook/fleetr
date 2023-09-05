@@ -1,4 +1,4 @@
-import { Group, Button, Stack, ScrollArea, ActionIcon } from '@mantine/core'
+import { Group, Stack, ScrollArea, ActionIcon } from '@mantine/core'
 import { useRef } from 'react'
 import {
   IconCaretDown,
@@ -7,7 +7,7 @@ import {
   IconCaretUp,
 } from '@tabler/icons-react'
 
-const slideWidth = 640
+const slideWidth = 660
 const slideHeight = 360
 
 interface Note {
@@ -18,28 +18,28 @@ interface Note {
 }
 
 interface SlideProps {
-  Note: Note
+  note: Note
 }
 
-const Slide: React.FC<SlideProps> = ({ Note }) => {
+const Slide: React.FC<SlideProps> = ({ note }) => {
   return (
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: slideWidth, // make sure slideWidth is defined
-        height: slideHeight, // make sure slideHeight is defined
-        overflow: 'hidden',
+        width: slideWidth,
+        height: slideHeight,
         fontSize: '2rem',
         fontWeight: 700,
         color: 'white',
         background: 'red',
+        // overflow: 'hidden',
       }}
     >
       <div>
-        <h1>{Note.title}</h1>
-        <p>{Note.content}</p>
+        <h1>{note.title}</h1>
+        <p>{note.content}</p>
       </div>
     </div>
   )
@@ -58,12 +58,12 @@ export default function Carousel() {
     })
 
   const notes = [
-    {
-      id: '1',
-      title: 'Slide 1',
-      content:
-        'Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
-    },
+    // {
+    //   id: '1',
+    //   title: 'Slide 1',
+    //   content:
+    //     'Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
+    // },
     {
       id: '2',
       title: 'Slide 2',
@@ -114,11 +114,13 @@ export default function Carousel() {
         >
           <Group
             style={{
-              width: slideWidth * 3,
+              width: slideWidth * notes.length,
             }}
+            noWrap={true}
+            spacing={0}
           >
             {notes.map((note) => (
-              <Slide key={note.id} Note={note} />
+              <Slide key={note.id} note={note} />
             ))}
           </Group>
         </ScrollArea>
