@@ -5,11 +5,13 @@ export default function Slide({ children }: { children: React.ReactNode }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100%',
+        width: '320px',
+        height: '180px',
         fontSize: '2rem',
         fontWeight: 700,
         color: 'white',
-        background: 'rgb(20, 21, 23)',
+        // background: 'rgb(20, 21, 23)',
+        background: 'red',
       }}
     >
       {children}
