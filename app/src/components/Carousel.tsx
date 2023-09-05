@@ -23,7 +23,7 @@ interface SlideProps {
 
 const Slide: React.FC<SlideProps> = ({ note, width, height }) => {
   return (
-    <div
+    <Paper
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -46,7 +46,7 @@ const Slide: React.FC<SlideProps> = ({ note, width, height }) => {
         <h1>{note.title}</h1>
         <p>{note.content}</p>
       </div>
-    </div>
+    </Paper>
   )
 }
 
@@ -63,7 +63,7 @@ export default function Carousel() {
   const scrollRight = () => {
     viewport.current?.scrollBy({
       left: slideWidth,
-      behavior: 'smooth',
+      behavior: 'auto',
     })
   }
 
@@ -71,7 +71,7 @@ export default function Carousel() {
   const scrollLeft = () => {
     viewport.current?.scrollBy({
       left: -slideWidth, // Negative value to scroll left
-      behavior: 'smooth',
+      behavior: 'auto',
     })
   }
 
@@ -116,72 +116,70 @@ export default function Carousel() {
   ]
 
   return (
-    <Paper>
-      <Group
-        className='hide-scrollbar'
+    <Group
+      className='hide-scrollbar'
+      style={{
+        width: slideWidth + buttonOffset,
+        height: slideHeight + buttonOffset,
+      }}
+      spacing={0}
+      noWrap={true}
+    >
+      <ActionIcon ref={leftButtonRef} onClick={scrollLeft}>
+        <IconCaretLeft />
+      </ActionIcon>
+      <Stack
         style={{
-          width: slideWidth + buttonOffset,
-          height: slideHeight + buttonOffset,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
         spacing={0}
-        noWrap={true}
       >
-        <ActionIcon ref={leftButtonRef} onClick={scrollLeft}>
-          <IconCaretLeft />
-        </ActionIcon>
-        <Stack
+        <ActionIcon
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            visibility: 'hidden',
           }}
-          spacing={0}
         >
-          <ActionIcon
-            style={{
-              visibility: 'hidden',
-            }}
-          >
-            <IconCaretUp />
-          </ActionIcon>
-          <ScrollArea
+          <IconCaretUp />
+        </ActionIcon>
+        <ScrollArea
+          className='hide-scrollbar'
+          style={{
+            width: slideWidth,
+            height: slideHeight,
+          }}
+          viewportRef={viewport}
+        >
+          <Group
             className='hide-scrollbar'
             style={{
-              width: slideWidth,
-              height: slideHeight,
+              width: slideWidth * notes.length,
             }}
-            viewportRef={viewport}
+            noWrap={true}
+            spacing={0}
           >
-            <Group
-              className='hide-scrollbar'
-              style={{
-                width: slideWidth * notes.length,
-              }}
-              noWrap={true}
-              spacing={0}
-            >
-              {notes.map((note) => (
-                <Slide
-                  key={note.id}
-                  note={note}
-                  width={slideWidth}
-                  height={slideHeight}
-                />
-              ))}
-            </Group>
-          </ScrollArea>
-          <ActionIcon
-            style={{
-              visibility: 'hidden',
-            }}
-          >
-            <IconCaretDown />
-          </ActionIcon>
-        </Stack>
-        <ActionIcon ref={rightButtonRef} onClick={scrollRight}>
-          <IconCaretRight />
+            {notes.map((note) => (
+              <Slide
+                key={note.id}
+                note={note}
+                width={slideWidth}
+                height={slideHeight}
+              />
+            ))}
+          </Group>
+        </ScrollArea>
+        <ActionIcon
+          style={{
+            visibility: 'hidden',
+          }}
+        >
+          <IconCaretDown />
         </ActionIcon>
-      </Group>
-    </Paper>
+      </Stack>
+      <ActionIcon ref={rightButtonRef} onClick={scrollRight}>
+        <IconCaretRight />
+      </ActionIcon>
+    </Group>
   )
 }
