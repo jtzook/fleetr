@@ -1,5 +1,5 @@
 import { Group, Stack, ScrollArea, ActionIcon } from '@mantine/core'
-import { useRef } from 'react'
+import { KeyboardEvent, useEffect, useRef } from 'react'
 import {
   IconCaretDown,
   IconCaretLeft,
@@ -53,14 +53,42 @@ const Slide: React.FC<SlideProps> = ({ note }) => {
 export default function Carousel() {
   const viewport = useRef<HTMLDivElement>(null)
 
-  const scrollToLeft = () =>
-    viewport?.current?.scrollTo({ left: 0, behavior: 'smooth' })
-
-  const scrollToRight = () =>
-    viewport?.current?.scrollTo({
-      left: viewport.current.scrollWidth,
+  // Scroll to the right by one slide's width
+  const scrollToRight = () => {
+    viewport.current?.scrollBy({
+      left: slideWidth,
       behavior: 'smooth',
     })
+  }
+
+  // Scroll to the left by one slide's width
+  const scrollToLeft = () => {
+    viewport.current?.scrollBy({
+      left: -slideWidth, // Negative value to scroll left
+      behavior: 'smooth',
+    })
+  }
+
+  const leftButtonRef = useRef<HTMLButtonElement>(null)
+  const rightButtonRef = useRef<HTMLButtonElement>(null)
+
+  // Keyboard event handler
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'ArrowRight' && rightButtonRef.current) {
+      rightButtonRef.current.click()
+    } else if (e.key === 'ArrowLeft' && leftButtonRef.current) {
+      leftButtonRef.current.click()
+    }
+  }
+
+  // Set up keyboard event listener
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   const notes = [
     {
@@ -91,7 +119,7 @@ export default function Carousel() {
       spacing={0}
       noWrap={true}
     >
-      <ActionIcon onClick={scrollToLeft}>
+      <ActionIcon ref={leftButtonRef} onClick={scrollToLeft}>
         <IconCaretLeft />
       </ActionIcon>
       <Stack
@@ -138,7 +166,7 @@ export default function Carousel() {
           <IconCaretDown />
         </ActionIcon>
       </Stack>
-      <ActionIcon onClick={scrollToRight}>
+      <ActionIcon ref={rightButtonRef} onClick={scrollToRight}>
         <IconCaretRight />
       </ActionIcon>
     </Group>
