@@ -1,7 +1,13 @@
-import { Group, Button, Stack, ScrollArea } from '@mantine/core'
+import { Group, Button, Stack, ScrollArea, ActionIcon } from '@mantine/core'
 import { useRef } from 'react'
 
 import Slide from './Slide'
+import {
+  IconCaretDown,
+  IconCaretLeft,
+  IconCaretRight,
+  IconCaretUp,
+} from '@tabler/icons-react'
 
 export default function Carousel() {
   const viewport = useRef<HTMLDivElement>(null)
@@ -36,9 +42,9 @@ export default function Carousel() {
         justifyContent: 'center',
       }}
     >
-      <Button onClick={scrollToLeft} variant='outline'>
-        left
-      </Button>
+      <ActionIcon onClick={scrollToLeft}>
+        <IconCaretLeft />
+      </ActionIcon>
       <Stack
         style={{
           height: '100%',
@@ -47,9 +53,10 @@ export default function Carousel() {
           justifyContent: 'center',
         }}
       >
-        <Button onClick={scrollToTop} variant='outline'>
-          top
-        </Button>
+        <ActionIcon onClick={scrollToTop}>
+          <IconCaretUp />
+        </ActionIcon>
+
         <ScrollArea
           style={{
             width: '320px',
@@ -68,13 +75,14 @@ export default function Carousel() {
             <Slide>3</Slide>
           </Group>
         </ScrollArea>
-        <Button onClick={scrollToBottom} variant='outline'>
-          bottom
-        </Button>
+
+        <ActionIcon onClick={scrollToBottom}>
+          <IconCaretDown />
+        </ActionIcon>
       </Stack>
-      <Button onClick={scrollToRight} variant='outline'>
-        right
-      </Button>
+      <ActionIcon onClick={scrollToRight}>
+        <IconCaretRight />
+      </ActionIcon>
     </Group>
   )
 }
