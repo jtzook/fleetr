@@ -1,4 +1,5 @@
 import { Group, Stack, ScrollArea, ActionIcon, Paper } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { useEffect, useRef } from 'react'
 import {
   IconCaretDown,
@@ -6,9 +7,6 @@ import {
   IconCaretRight,
   IconCaretUp,
 } from '@tabler/icons-react'
-
-const slideWidth = 660
-const slideHeight = 360
 
 interface Note {
   id: string
@@ -19,17 +17,19 @@ interface Note {
 
 interface SlideProps {
   note: Note
+  width: number
+  height: number
 }
 
-const Slide: React.FC<SlideProps> = ({ note }) => {
+const Slide: React.FC<SlideProps> = ({ note, width, height }) => {
   return (
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: slideWidth,
-        height: slideHeight,
+        width,
+        height,
         fontSize: '2rem',
         fontWeight: 700,
         color: 'white',
@@ -38,7 +38,7 @@ const Slide: React.FC<SlideProps> = ({ note }) => {
     >
       <div
         style={{
-          height: slideHeight,
+          height,
           overflowY: 'auto',
           padding: 28,
         }}
@@ -51,6 +51,11 @@ const Slide: React.FC<SlideProps> = ({ note }) => {
 }
 
 export default function Carousel() {
+  const isMobile = useMediaQuery('(max-width: 768px)')
+
+  const slideWidth = isMobile ? 330 : 660
+  const slideHeight = isMobile ? 180 : 360
+
   const viewport = useRef<HTMLDivElement>(null)
 
   // Scroll to the right by one slide's width
@@ -156,7 +161,12 @@ export default function Carousel() {
               spacing={0}
             >
               {notes.map((note) => (
-                <Slide key={note.id} note={note} />
+                <Slide
+                  key={note.id}
+                  note={note}
+                  width={slideWidth}
+                  height={slideHeight}
+                />
               ))}
             </Group>
           </ScrollArea>
