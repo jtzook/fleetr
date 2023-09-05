@@ -33,14 +33,14 @@ const Slide: React.FC<SlideProps> = ({ note, width, height }) => {
         fontSize: '2rem',
         fontWeight: 700,
         color: 'white',
-        background: 'red',
       }}
     >
       <div
         style={{
-          height,
           overflowY: 'auto',
-          padding: 28,
+          padding: 16,
+          width: '100%',
+          height,
         }}
       >
         <h1>{note.title}</h1>
@@ -55,6 +55,7 @@ export default function Carousel() {
 
   const slideWidth = isMobile ? 330 : 660
   const slideHeight = isMobile ? 180 : 360
+  const buttonOffset = isMobile ? 28 : 56
 
   const viewport = useRef<HTMLDivElement>(null)
 
@@ -119,9 +120,8 @@ export default function Carousel() {
       <Group
         className='hide-scrollbar'
         style={{
-          background: 'blue',
-          width: slideWidth + 56,
-          height: slideHeight + 56,
+          width: slideWidth + buttonOffset,
+          height: slideHeight + buttonOffset,
         }}
         spacing={0}
         noWrap={true}
