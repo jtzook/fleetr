@@ -34,22 +34,16 @@ const Slide: React.FC<SlideProps> = ({ note }) => {
         fontWeight: 700,
         color: 'white',
         background: 'red',
-        // overflowY: 'hidden',
       }}
     >
       <div
-      // style={{
-      //   overflowY: 'hidden',
-      // }}
+        style={{
+          height: slideHeight,
+          overflowY: 'auto',
+        }}
       >
         <h1>{note.title}</h1>
-        <p
-        // style={{
-        //   overflowY: 'hidden',
-        // }}
-        >
-          {note.content}
-        </p>
+        <p>{note.content}</p>
       </div>
     </div>
   )
@@ -105,6 +99,7 @@ export default function Carousel() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          overflow: 'hidden',
         }}
         spacing={0}
       >
@@ -120,12 +115,14 @@ export default function Carousel() {
           style={{
             width: slideWidth,
             height: slideHeight,
+            overflow: 'hidden',
           }}
           viewportRef={viewport}
         >
           <Group
             style={{
               width: slideWidth * notes.length,
+              overflow: 'hidden',
             }}
             noWrap={true}
             spacing={0}
