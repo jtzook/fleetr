@@ -1,7 +1,5 @@
 import { Group, Button, Stack, ScrollArea, ActionIcon } from '@mantine/core'
 import { useRef } from 'react'
-
-import Slide from './Slide'
 import {
   IconCaretDown,
   IconCaretLeft,
@@ -9,19 +7,46 @@ import {
   IconCaretUp,
 } from '@tabler/icons-react'
 
+const slideWidth = 640
+const slideHeight = 360
+
+interface Note {
+  id: string
+  title: string
+  content: string
+  meta?: any
+}
+
+interface SlideProps {
+  Note: Note
+}
+
+const Slide: React.FC<SlideProps> = ({ Note }) => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: slideWidth, // make sure slideWidth is defined
+        height: slideHeight, // make sure slideHeight is defined
+        overflow: 'hidden',
+        fontSize: '2rem',
+        fontWeight: 700,
+        color: 'white',
+        background: 'red',
+      }}
+    >
+      <div>
+        <h1>{Note.title}</h1>
+        <p>{Note.content}</p>
+      </div>
+    </div>
+  )
+}
+
 export default function Carousel() {
   const viewport = useRef<HTMLDivElement>(null)
-
-  const scrollToBottom = () => {
-    console.log('Viewport: ', viewport.current)
-    viewport?.current?.scrollTo({
-      top: viewport.current.scrollHeight,
-      behavior: 'smooth',
-    })
-  }
-
-  const scrollToTop = () =>
-    viewport?.current?.scrollTo({ top: 0, behavior: 'smooth' })
 
   const scrollToLeft = () =>
     viewport?.current?.scrollTo({ left: 0, behavior: 'smooth' })
@@ -32,51 +57,77 @@ export default function Carousel() {
       behavior: 'smooth',
     })
 
+  const notes = [
+    {
+      id: '1',
+      title: 'Slide 1',
+      content:
+        'Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
+    },
+    {
+      id: '2',
+      title: 'Slide 2',
+      content: 'Slide 2 content',
+    },
+    {
+      id: '3',
+      title: 'Slide 3',
+      content: 'Slide 3 content',
+    },
+  ]
+
   return (
     <Group
-      position='center'
       style={{
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        background: 'blue',
+        width: slideWidth + 56,
+        height: slideHeight + 56,
       }}
+      spacing={0}
+      noWrap={true}
     >
       <ActionIcon onClick={scrollToLeft}>
         <IconCaretLeft />
       </ActionIcon>
       <Stack
         style={{
-          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
+        spacing={0}
       >
-        <ActionIcon onClick={scrollToTop}>
+        <ActionIcon
+          style={{
+            visibility: 'hidden',
+          }}
+        >
           <IconCaretUp />
         </ActionIcon>
 
         <ScrollArea
           style={{
-            width: '320px',
-            height: '180px',
+            width: slideWidth,
+            height: slideHeight,
           }}
           viewportRef={viewport}
         >
           <Group
             style={{
-              width: '1000px',
+              width: slideWidth * 3,
             }}
-            position='center'
           >
-            <Slide>1</Slide>
-            <Slide>2</Slide>
-            <Slide>3</Slide>
+            {notes.map((note) => (
+              <Slide key={note.id} Note={note} />
+            ))}
           </Group>
         </ScrollArea>
 
-        <ActionIcon onClick={scrollToBottom}>
+        <ActionIcon
+          style={{
+            visibility: 'hidden',
+          }}
+        >
           <IconCaretDown />
         </ActionIcon>
       </Stack>
