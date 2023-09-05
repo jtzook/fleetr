@@ -34,12 +34,22 @@ const Slide: React.FC<SlideProps> = ({ note }) => {
         fontWeight: 700,
         color: 'white',
         background: 'red',
-        // overflow: 'hidden',
+        // overflowY: 'hidden',
       }}
     >
-      <div>
+      <div
+      // style={{
+      //   overflowY: 'hidden',
+      // }}
+      >
         <h1>{note.title}</h1>
-        <p>{note.content}</p>
+        <p
+        // style={{
+        //   overflowY: 'hidden',
+        // }}
+        >
+          {note.content}
+        </p>
       </div>
     </div>
   )
@@ -58,12 +68,12 @@ export default function Carousel() {
     })
 
   const notes = [
-    // {
-    //   id: '1',
-    //   title: 'Slide 1',
-    //   content:
-    //     'Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
-    // },
+    {
+      id: '1',
+      title: 'Slide 1',
+      content:
+        'Slide 1 content. Slide 1 content. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
+    },
     {
       id: '2',
       title: 'Slide 2',
@@ -82,6 +92,7 @@ export default function Carousel() {
         background: 'blue',
         width: slideWidth + 56,
         height: slideHeight + 56,
+        overflow: 'hidden',
       }}
       spacing={0}
       noWrap={true}
