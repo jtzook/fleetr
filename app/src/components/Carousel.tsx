@@ -60,7 +60,7 @@ export default function Carousel() {
   const viewport = useRef<HTMLDivElement>(null)
 
   // Scroll to the right by one slide's width
-  const scrollToRight = () => {
+  const scrollRight = () => {
     viewport.current?.scrollBy({
       left: slideWidth,
       behavior: 'smooth',
@@ -68,7 +68,7 @@ export default function Carousel() {
   }
 
   // Scroll to the left by one slide's width
-  const scrollToLeft = () => {
+  const scrollLeft = () => {
     viewport.current?.scrollBy({
       left: -slideWidth, // Negative value to scroll left
       behavior: 'smooth',
@@ -81,9 +81,9 @@ export default function Carousel() {
   // Keyboard event handler
   const handleKeyDown = (e: any) => {
     if (e.key === 'ArrowRight' && rightButtonRef.current) {
-      rightButtonRef.current.click()
+      scrollRight()
     } else if (e.key === 'ArrowLeft' && leftButtonRef.current) {
-      leftButtonRef.current.click()
+      scrollLeft()
     }
   }
 
@@ -126,7 +126,7 @@ export default function Carousel() {
         spacing={0}
         noWrap={true}
       >
-        <ActionIcon ref={leftButtonRef} onClick={scrollToLeft}>
+        <ActionIcon ref={leftButtonRef} onClick={scrollLeft}>
           <IconCaretLeft />
         </ActionIcon>
         <Stack
@@ -178,7 +178,7 @@ export default function Carousel() {
             <IconCaretDown />
           </ActionIcon>
         </Stack>
-        <ActionIcon ref={rightButtonRef} onClick={scrollToRight}>
+        <ActionIcon ref={rightButtonRef} onClick={scrollRight}>
           <IconCaretRight />
         </ActionIcon>
       </Group>
