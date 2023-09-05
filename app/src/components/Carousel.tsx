@@ -87,7 +87,6 @@ export default function Carousel() {
         background: 'blue',
         width: slideWidth + 56,
         height: slideHeight + 56,
-        overflow: 'hidden',
       }}
       spacing={0}
       noWrap={true}
@@ -100,7 +99,6 @@ export default function Carousel() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          overflow: 'hidden',
         }}
         spacing={0}
       >
@@ -116,14 +114,12 @@ export default function Carousel() {
           style={{
             width: slideWidth,
             height: slideHeight,
-            overflow: 'hidden',
           }}
           viewportRef={viewport}
         >
           <Group
             style={{
               width: slideWidth * notes.length,
-              overflow: 'hidden',
             }}
             noWrap={true}
             spacing={0}
