@@ -61,18 +61,22 @@ export default function Carousel() {
 
   // Scroll to the right by one slide's width
   const scrollRight = () => {
-    viewport.current?.scrollBy({
-      left: slideWidth,
-      behavior: 'auto',
-    })
+    setTimeout(() => {
+      viewport.current?.scrollBy({
+        left: slideWidth,
+        behavior: 'auto',
+      })
+    }, 0)
   }
 
   // Scroll to the left by one slide's width
   const scrollLeft = () => {
-    viewport.current?.scrollBy({
-      left: -slideWidth, // Negative value to scroll left
-      behavior: 'auto',
-    })
+    setTimeout(() => {
+      viewport.current?.scrollBy({
+        left: -slideWidth,
+        behavior: 'auto',
+      })
+    }, 0)
   }
 
   const leftButtonRef = useRef<HTMLButtonElement>(null)
