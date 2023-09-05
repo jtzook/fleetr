@@ -54,7 +54,7 @@ export default function Carousel() {
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   const slideWidth = isMobile ? 330 : 660
-  const slideHeight = isMobile ? 180 : 360
+  const slideHeight = 360
   const buttonOffset = isMobile ? 28 : 56
 
   const viewport = useRef<HTMLDivElement>(null)
