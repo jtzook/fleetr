@@ -1,5 +1,5 @@
-import { Group, Stack, ScrollArea, ActionIcon } from '@mantine/core'
-import { KeyboardEvent, useEffect, useRef } from 'react'
+import { Group, Stack, ScrollArea, ActionIcon, Paper } from '@mantine/core'
+import { useEffect, useRef } from 'react'
 import {
   IconCaretDown,
   IconCaretLeft,
@@ -110,65 +110,68 @@ export default function Carousel() {
   ]
 
   return (
-    <Group
-      style={{
-        background: 'blue',
-        width: slideWidth + 56,
-        height: slideHeight + 56,
-      }}
-      spacing={0}
-      noWrap={true}
-    >
-      <ActionIcon ref={leftButtonRef} onClick={scrollToLeft}>
-        <IconCaretLeft />
-      </ActionIcon>
-      <Stack
+    <Paper>
+      <Group
+        className='hide-scrollbar'
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          background: 'blue',
+          width: slideWidth + 56,
+          height: slideHeight + 56,
         }}
         spacing={0}
+        noWrap={true}
       >
-        <ActionIcon
-          style={{
-            visibility: 'hidden',
-          }}
-        >
-          <IconCaretUp />
+        <ActionIcon ref={leftButtonRef} onClick={scrollToLeft}>
+          <IconCaretLeft />
         </ActionIcon>
-
-        <ScrollArea
+        <Stack
           style={{
-            width: slideWidth,
-            height: slideHeight,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-          viewportRef={viewport}
+          spacing={0}
         >
-          <Group
+          <ActionIcon
             style={{
-              width: slideWidth * notes.length,
+              visibility: 'hidden',
             }}
-            noWrap={true}
-            spacing={0}
           >
-            {notes.map((note) => (
-              <Slide key={note.id} note={note} />
-            ))}
-          </Group>
-        </ScrollArea>
-
-        <ActionIcon
-          style={{
-            visibility: 'hidden',
-          }}
-        >
-          <IconCaretDown />
+            <IconCaretUp />
+          </ActionIcon>
+          <ScrollArea
+            className='hide-scrollbar'
+            style={{
+              width: slideWidth,
+              height: slideHeight,
+            }}
+            viewportRef={viewport}
+          >
+            <Group
+              className='hide-scrollbar'
+              style={{
+                width: slideWidth * notes.length,
+              }}
+              noWrap={true}
+              spacing={0}
+            >
+              {notes.map((note) => (
+                <Slide key={note.id} note={note} />
+              ))}
+            </Group>
+          </ScrollArea>
+          <ActionIcon
+            style={{
+              visibility: 'hidden',
+            }}
+          >
+            <IconCaretDown />
+          </ActionIcon>
+        </Stack>
+        <ActionIcon ref={rightButtonRef} onClick={scrollToRight}>
+          <IconCaretRight />
         </ActionIcon>
-      </Stack>
-      <ActionIcon ref={rightButtonRef} onClick={scrollToRight}>
-        <IconCaretRight />
-      </ActionIcon>
-    </Group>
+      </Group>
+    </Paper>
   )
 }
