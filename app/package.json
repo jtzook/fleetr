@@ -15,9 +15,13 @@
     "@mantine/hooks": "^5.9.5",
     "@mantine/modals": "^5.9.5",
     "@tabler/icons-react": "^2.33.0",
+    "@types/node": "^20.5.9",
     "embla-carousel-react": "^7.0.5",
+    "path": "^0.12.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sqlite3": "^5.1.6",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
