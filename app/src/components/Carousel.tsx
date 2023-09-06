@@ -9,41 +9,7 @@ import {
 } from '@tabler/icons-react'
 
 import { Note } from '../types/NoteTypes'
-
-interface SlideProps {
-  note: Note
-  width: number
-  height: number
-}
-
-const Slide: React.FC<SlideProps> = ({ note, width, height }) => {
-  return (
-    <Paper
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width,
-        height,
-        fontSize: '2rem',
-        fontWeight: 700,
-        color: 'white',
-      }}
-    >
-      <div
-        style={{
-          overflowY: 'auto',
-          padding: 16,
-          width: '100%',
-          height,
-        }}
-      >
-        <h1>{note.title}</h1>
-        <p>{note.text}</p>
-      </div>
-    </Paper>
-  )
-}
+import CarouselSlide from './CarouselSlide'
 
 interface CarouselProps {
   notes: Note[]
@@ -144,7 +110,7 @@ export default function Carousel({ notes }: CarouselProps) {
             spacing={0}
           >
             {notes.map((note) => (
-              <Slide
+              <CarouselSlide
                 key={note.id}
                 note={note}
                 width={slideWidth}

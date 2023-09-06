@@ -1,7 +1,8 @@
 import Carousel from '../components/Carousel'
+import { Note } from '../types/NoteTypes'
 
 export default function HomePage() {
-  const notes = [
+  const notes: Note[] = [
     {
       id: 1,
       title: 'Slide 1',
