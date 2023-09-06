@@ -45,7 +45,11 @@ const Slide: React.FC<SlideProps> = ({ note, width, height }) => {
   )
 }
 
-export default function Carousel() {
+interface CarouselProps {
+  notes: Note[]
+}
+
+export default function Carousel({ notes }: CarouselProps) {
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   const slideWidth = isMobile ? 330 : 660
@@ -94,24 +98,6 @@ export default function Carousel() {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
-
-  const notes = [
-    {
-      id: 1,
-      title: 'Slide 1',
-      text: 'Slide 1 content. Slide 1 content. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
-    },
-    {
-      id: 2,
-      title: 'Slide 2',
-      text: 'Slide 2 content',
-    },
-    {
-      id: 3,
-      title: 'Slide 3',
-      text: 'Slide 3 content',
-    },
-  ]
 
   return (
     <Group

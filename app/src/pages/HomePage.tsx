@@ -1,7 +1,24 @@
-import { Grid, Paper } from '@mantine/core'
 import Carousel from '../components/Carousel'
 
 export default function HomePage() {
+  const notes = [
+    {
+      id: 1,
+      title: 'Slide 1',
+      text: 'Slide 1 content. Slide 1 content. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
+    },
+    {
+      id: 2,
+      title: 'Slide 2',
+      text: 'Slide 2 content',
+    },
+    {
+      id: 3,
+      title: 'Slide 3',
+      text: 'Slide 3 content',
+    },
+  ]
+
   return (
     <main
       style={{
@@ -11,7 +28,7 @@ export default function HomePage() {
         justifyContent: 'center',
       }}
     >
-      <Carousel />
+      <Carousel notes={notes} />
     </main>
   )
 }
