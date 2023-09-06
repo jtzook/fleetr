@@ -8,12 +8,7 @@ import {
   IconCaretUp,
 } from '@tabler/icons-react'
 
-interface Note {
-  id: string
-  title: string
-  content: string
-  meta?: any
-}
+import { Note } from '../types/NoteTypes'
 
 interface SlideProps {
   note: Note
@@ -44,7 +39,7 @@ const Slide: React.FC<SlideProps> = ({ note, width, height }) => {
         }}
       >
         <h1>{note.title}</h1>
-        <p>{note.content}</p>
+        <p>{note.text}</p>
       </div>
     </Paper>
   )
@@ -102,20 +97,19 @@ export default function Carousel() {
 
   const notes = [
     {
-      id: '1',
+      id: 1,
       title: 'Slide 1',
-      content:
-        'Slide 1 content. Slide 1 content. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
+      text: 'Slide 1 content. Slide 1 content. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide ent. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. Slide 1 content. ',
     },
     {
-      id: '2',
+      id: 2,
       title: 'Slide 2',
-      content: 'Slide 2 content',
+      text: 'Slide 2 content',
     },
     {
-      id: '3',
+      id: 3,
       title: 'Slide 3',
-      content: 'Slide 3 content',
+      text: 'Slide 3 content',
     },
   ]
 
