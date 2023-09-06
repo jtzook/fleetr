@@ -11,16 +11,16 @@ export default function App() {
     >
       <AppShell
         padding='md'
-        header={
-          <Header height={80} p='xs'>
-            {''}
-          </Header>
-        }
-        footer={
-          <Footer height={80} p='xs'>
-            {''}
-          </Footer>
-        }
+        // header={
+        //   <Header height={80} p='xs'>
+        //     {''}
+        //   </Header>
+        // }
+        // footer={
+        //   <Footer height={80} p='xs'>
+        //     {''}
+        //   </Footer>
+        // }
         styles={(theme) => ({
           main: {
             backgroundColor:
