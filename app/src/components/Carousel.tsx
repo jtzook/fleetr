@@ -26,22 +26,18 @@ export default function Carousel({ notes }: CarouselProps) {
 
   // Scroll to the right by one slide's width
   const scrollRight = () => {
-    setTimeout(() => {
-      viewport.current?.scrollBy({
-        left: slideWidth,
-        behavior: 'auto',
-      })
-    }, 0)
+    viewport.current?.scrollBy({
+      left: slideWidth,
+      behavior: 'smooth',
+    })
   }
 
   // Scroll to the left by one slide's width
   const scrollLeft = () => {
-    setTimeout(() => {
-      viewport.current?.scrollBy({
-        left: -slideWidth,
-        behavior: 'auto',
-      })
-    }, 0)
+    viewport.current?.scrollBy({
+      left: -slideWidth,
+      behavior: 'smooth',
+    })
   }
 
   const leftButtonRef = useRef<HTMLButtonElement>(null)
