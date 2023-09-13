@@ -22,4 +22,7 @@ pipenv --three
 
 # start virtual environment
 pipenv shell
+
+# install dependencies
+pipenv install <packages...>
 ```
