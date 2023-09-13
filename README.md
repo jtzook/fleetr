@@ -1,6 +1,6 @@
-# yaps
+# fleetr
 
-Web app with carousel to view and edit private posts.
+Web app with carousel to browse, edit, and create fleets.
 
 ## App
 
