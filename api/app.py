@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token
+from email_validator import validate_email, EmailNotValidError
+
 import sqlite3
 
 app = Flask(__name__)
@@ -14,9 +16,12 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT,
     password TEXT,
     first_name TEXT,
-    last_name TEXT
+    last_name TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 """
+
 
 # Initialize SQLite database
 def init_db():
@@ -26,34 +31,48 @@ def init_db():
         cursor.execute(create_db)
         db.commit()
 
+
 init_db()
 
-@app.route('/')
+
+@app.route("/")
 def hello_world():
     return jsonify({"msg": "Hello World!"})
 
-@app.route('/login', methods=['POST'])
+
+@app.route("/login", methods=["POST"])
 def login():
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    try:
+        v = validate_email(email)
+        email = v["email"]
+    except EmailNotValidError as e:
+        # Email is not valid, return 400
+        return jsonify({"msg": "Email is not valid"}), 400
 
     # Replace this with your database user authentication
-    if username == 'test' and password == 'password':
-        access_token = create_access_token(identity=username)
+    if email == "test@example.com" and password == "password":
+        access_token = create_access_token(identity=email)
+
         return jsonify(access_token=access_token), 200
 
-    return jsonify({"msg": "Bad username or password"}), 401
+    return jsonify({"msg": "Incorrect email or password. Please try again."}), 401
 
-@app.route('/protected', methods=['GET'])
+
+@app.route("/protected", methods=["GET"])
 @jwt_required()
 def protected():
     return jsonify({"msg": "You have access to this resource"})
 
-@app.route('/logout', methods=['POST'])
+
+@app.route("/logout", methods=["POST"])
 @jwt_required()
 def logout():
     # Implement JWT token revoking here
     return jsonify({"msg": "Successfully logged out"}), 200
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(debug=True)
