@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS users (
 # Initialize SQLite database
 def init_db():
     with app.app_context():
-        db = sqlite3.connect("yapper.db")
+        db = sqlite3.connect("fleetr.db")
         cursor = db.cursor()
         cursor.execute(create_db)
         db.commit()
