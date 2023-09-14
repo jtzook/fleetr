@@ -6,6 +6,7 @@ from flask_jwt_extended import (
 from email_validator import validate_email, EmailNotValidError
 from werkzeug.security import generate_password_hash
 from database.db_client import register_user
+from database.db_client import check_user_credentials
 
 public_routes = Blueprint("public", __name__)
 
@@ -53,8 +54,9 @@ def login():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
-    # Replace this with your database user authentication
-    if email == "example@fleetr.com" and password == "password":
+    is_authenticated, msg = check_user_credentials(current_app, email, password)
+
+    if is_authenticated:
         access_token = create_access_token(identity=email)
         refresh_token = create_refresh_token(identity=email)
         return jsonify(access_token=access_token, refresh_token=refresh_token), 200
