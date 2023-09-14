@@ -53,7 +53,7 @@ def login():
         return jsonify({"msg": "Email is not valid"}), 400
 
     # Replace this with your database user authentication
-    if email == "test@example.com" and password == "password":
+    if email == "example@fleetr.com" and password == "password":
         access_token = create_access_token(identity=email)
 
         return jsonify(access_token=access_token), 200
