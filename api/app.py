@@ -1,8 +1,7 @@
 from flask import Flask
 from database import init_db
-
-# from routes import api
 from routes.public import public_routes
+from routes.protected import protected_routes
 from jwt_setup import init_jwt
 from config import Config
 
@@ -13,7 +12,7 @@ app.config.from_object(Config)
 
 # register routes
 app.register_blueprint(public_routes)
-# app.register_blueprint(api)
+app.register_blueprint(protected_routes, url_prefix="/api")
 
 # initialize database
 init_db(app)
