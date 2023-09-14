@@ -1,5 +1,5 @@
 from flask import Flask
-from data.database import init_db
+from database.db_client import init_db
 from routes.public import public_routes
 from routes.protected import protected_routes
 from jwt_setup import init_jwt

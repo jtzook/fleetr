@@ -5,7 +5,7 @@ from flask_jwt_extended import (
 )
 from email_validator import validate_email, EmailNotValidError
 from werkzeug.security import generate_password_hash
-from data.database import register_user
+from database.db_client import register_user
 
 public_routes = Blueprint("public", __name__)
 
