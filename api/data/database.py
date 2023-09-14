@@ -20,3 +20,23 @@ def init_db(app):
         cursor = db.cursor()
         cursor.execute(create_db)
         db.commit()
+
+
+def register_user(app, email, hashed_password, first_name, last_name):
+    db_path = f"{app.config['DATABASE_DIRECTORY']}/{app.config['DATABASE_NAME']}"
+    try:
+        connection = sqlite3.connect(db_path)
+        cursor = connection.cursor()
+
+        cursor.execute(
+            "INSERT INTO users (email, password, first_name, last_name) VALUES (?, ?, ?, ?)",
+            (email, hashed_password, first_name, last_name),
+        )
+
+        connection.commit()
+        connection.close()
+
+        return True, "User registered successfully"
+
+    except sqlite3.Error as err:
+        return False, str(err)
