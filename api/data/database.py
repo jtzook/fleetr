@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS users (
 
 def init_db(app):
     with app.app_context():
-        db = sqlite3.connect("fleetr.db")
+        db_path = f"{app.config['DATABASE_DIRECTORY']}/{app.config['DATABASE_NAME']}"
+        db = sqlite3.connect(db_path)
         cursor = db.cursor()
         cursor.execute(create_db)
         db.commit()
