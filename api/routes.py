@@ -1,44 +1,11 @@
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity,
     create_access_token,
-    create_refresh_token,
 )
-from email_validator import validate_email, EmailNotValidError
 
-api = Blueprint("api", __name__)
-
-# unprotected routes
-
-
-@api.route("/")
-def hello_world():
-    return jsonify({"msg": "Hello World!"})
-
-
-@api.route("/login", methods=["POST"])
-def login():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-
-    try:
-        v = validate_email(email)
-        email = v["email"]
-    except EmailNotValidError as e:
-        # Email is not valid, return 400
-        return jsonify({"msg": "Email is not valid"}), 400
-
-    # Replace this with your database user authentication
-    if email == "example@fleetr.com" and password == "password":
-        access_token = create_access_token(identity=email)
-        refresh_token = create_refresh_token(identity=email)
-        return jsonify(access_token=access_token, refresh_token=refresh_token), 200
-
-    return jsonify({"msg": "Incorrect email or password. Please try again."}), 401
-
-
-# protected routes
+api = Blueprint("protected", __name__)
 
 
 # lambda function to combine route prefix and route name
