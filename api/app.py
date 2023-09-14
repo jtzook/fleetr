@@ -8,36 +8,13 @@ from flask_jwt_extended import (
     verify_jwt_in_request,
 )
 from email_validator import validate_email, EmailNotValidError
-
-import sqlite3
+from database import init_db
 
 
 app = Flask(__name__)
 
 
-create_db = """
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email TEXT,
-    password TEXT,
-    first_name TEXT,
-    last_name TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-"""
-
-
-# Initialize SQLite database
-def init_db():
-    with app.app_context():
-        db = sqlite3.connect("fleetr.db")
-        cursor = db.cursor()
-        cursor.execute(create_db)
-        db.commit()
-
-
-init_db()
+init_db(app)
 
 
 # Initialize JWT
