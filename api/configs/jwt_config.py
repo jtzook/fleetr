@@ -4,11 +4,12 @@ from flask_jwt_extended import verify_jwt_in_request
 
 
 def init_jwt(app):
-    app.config["JWT_SECRET_KEY"] = "super-secret"
     JWTManager(app)
 
     def verify_protected_routes():
-        if request.path.startswith("/api"):
+        exclude_paths = ["/api/refresh"]  # Add any other paths you want to exclude here
+
+        if request.path.startswith("/api") and request.path not in exclude_paths:
             verify_jwt_in_request()
 
     app.before_request(verify_protected_routes)

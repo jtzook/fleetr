@@ -22,7 +22,6 @@ def protected():
 
 
 @protected_routes.route("logout", methods=["POST"])
-@jwt_required()
 def logout():
     # Implement JWT token revoking here
     return jsonify({"msg": "Successfully logged out"}), 200
