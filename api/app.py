@@ -2,8 +2,8 @@ from flask import Flask
 from database.db_client import init_db
 from routes.public import public_routes
 from routes.protected import protected_routes
-from jwt_setup import init_jwt
-from config import Config
+from configs.jwt_config import init_jwt
+from configs.app_config import Config
 
 app = Flask(__name__)
 
