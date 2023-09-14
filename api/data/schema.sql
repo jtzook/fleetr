@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT,
+    password TEXT,
+    first_name TEXT,
+    last_name TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS fleets (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    author INTEGER,
+    labels TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    meta TEXT,
+    FOREIGN KEY (author) REFERENCES users(id)
+);

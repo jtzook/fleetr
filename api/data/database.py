@@ -1,24 +1,35 @@
 import sqlite3
+import os
 
-create_db = """
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email TEXT,
-    password TEXT,
-    first_name TEXT,
-    last_name TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-"""
+
+# path to current directory
+DATA_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def apply_sql_file(cursor, file_path):
+    full_path = os.path.join(DATA_DIR, file_path)
+    with open(full_path, "r") as f:
+        cursor.executescript(f.read())
 
 
 def init_db(app):
     with app.app_context():
-        db_path = f"{app.config['DATABASE_DIRECTORY']}/{app.config['DATABASE_NAME']}"
+        db_path = os.path.join(
+            app.config["DATABASE_DIRECTORY"], app.config["DATABASE_NAME"]
+        )
         db = sqlite3.connect(db_path)
         cursor = db.cursor()
-        cursor.execute(create_db)
+
+        # Apply initial schema
+        apply_sql_file(cursor, "schema.sql")
+
+        # Apply migrations
+        migrations_dir = os.path.join(DATA_DIR, "migrations")
+
+        for filename in sorted(os.listdir(migrations_dir)):
+            if filename.endswith(".sql"):
+                apply_sql_file(cursor, os.path.join(migrations_dir, filename))
+
         db.commit()
 
 
