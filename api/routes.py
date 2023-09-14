@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, current_app, jsonify, request
 from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity,
@@ -6,7 +6,6 @@ from flask_jwt_extended import (
     create_refresh_token,
 )
 from email_validator import validate_email, EmailNotValidError
-
 
 api = Blueprint("api", __name__)
 
@@ -41,12 +40,11 @@ def login():
 
 # protected routes
 
-protected_route_prefix = "api"
-
 
 # lambda function to combine route prefix and route name
 # e.g. api/protected
 def full_route(endpoint_name):
+    protected_route_prefix = "api"
     return f"/{protected_route_prefix}/{endpoint_name}"
 
 
