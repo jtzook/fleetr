@@ -65,17 +65,17 @@ def check_user_credentials(app, email, password):
     try:
         connection = sqlite3.connect(get_db_path(app))
         cursor = connection.cursor()
-        cursor.execute("SELECT email, password FROM users WHERE email = ?", (email,))
+        cursor.execute("SELECT id, password FROM users WHERE email = ?", (email,))
         record = cursor.fetchone()
         connection.close()
 
         if record:
-            db_email, db_hashed_password = record
+            user_id, db_hashed_password = record
             if check_password_hash(db_hashed_password, password):
-                return True, "User authenticated successfully"
-        return False, "Incorrect email or password"
+                return True, user_id
+        return False, None
     except sqlite3.Error as err:
-        return False, str(err)
+        return False, None
 
 
 # Atomicity can be a concern in operations like this where you want either both operations to succeed or neither.

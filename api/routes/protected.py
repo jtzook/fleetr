@@ -47,16 +47,15 @@ def logout():
             400,
         )
 
-    # Get the currently logged-in user's email
     current_user_id = get_jwt_identity()
 
     try:
         decoded_access_token = decode_token(access_token)
         decoded_refresh_token = decode_token(refresh_token)
-        access_jti = decoded_access_token["jti"]
-        refresh_jti = decoded_refresh_token["jti"]
-        access_user_email = decoded_access_token.get("sub")
-        refresh_user_email = decoded_refresh_token.get("sub")
+        access_jti = decoded_access_token.get("jti")
+        refresh_jti = decoded_refresh_token.get("jti")
+        access_user_id = decoded_access_token.get("sub")
+        refresh_user_id = decoded_refresh_token.get("sub")
     except Exception as e:
         return (
             jsonify(
@@ -66,7 +65,7 @@ def logout():
         )
 
     # Check if tokens belong to the logged-in user
-    if current_user_id != access_user_email or current_user_id != refresh_user_email:
+    if current_user_id != access_user_id or current_user_id != refresh_user_id:
         return jsonify({"msg": "Token user mismatch"}), 400
 
     success, msg = revoke_tokens(current_app, access_jti, refresh_jti)

@@ -36,7 +36,7 @@ def register():
     except EmailNotValidError as e:
         return jsonify({"msg": "Email is not valid"}), 400
 
-    hashed_password = generate_password_hash(password, method="sha256")
+    hashed_password = generate_password_hash(password, method="scrypt")
 
     success, message = register_user(
         current_app, email, hashed_password, first_name, last_name
@@ -53,11 +53,11 @@ def login():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
-    is_authenticated, msg = check_user_credentials(current_app, email, password)
+    is_authenticated, user_id = check_user_credentials(current_app, email, password)
 
     if is_authenticated:
-        access_token = create_access_token(identity=email)
-        refresh_token = create_refresh_token(identity=email)
+        access_token = create_access_token(identity=user_id)
+        refresh_token = create_refresh_token(identity=user_id)
 
         return jsonify(access_token=access_token, refresh_token=refresh_token), 200
 
