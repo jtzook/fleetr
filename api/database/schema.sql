@@ -18,3 +18,9 @@ CREATE TABLE IF NOT EXISTS fleets (
     meta TEXT,
     FOREIGN KEY (author) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS revoked_tokens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    token_jti TEXT UNIQUE, -- JSON Web Token ID
+    revoked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
