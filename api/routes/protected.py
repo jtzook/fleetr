@@ -5,7 +5,7 @@ from flask_jwt_extended import (
     create_access_token,
     decode_token,
 )
-from database.db_client import revoke_tokens
+from database.db_client import revoke_tokens, check_for_revoked_tokens
 
 protected_routes = Blueprint("protected", __name__)
 
@@ -13,6 +13,15 @@ protected_routes = Blueprint("protected", __name__)
 @protected_routes.route("refresh", methods=["POST"])
 @jwt_required(refresh=True)
 def refresh():
+    token = request.headers.get("Authorization").split(" ")[1]
+
+    decoded_token_jti = decode_token(token)["jti"]
+
+    is_revoked, _ = check_for_revoked_tokens(current_app, decoded_token_jti)
+
+    if is_revoked:
+        return jsonify({"msg": "Token has been revoked"}), 401
+
     current_user = get_jwt_identity()
     new_token = create_access_token(identity=current_user)
     return jsonify(access_token=new_token), 200

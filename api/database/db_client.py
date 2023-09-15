@@ -108,3 +108,22 @@ def revoke_tokens(app, access_jti, refresh_jti):
     except sqlite3.Error as err:
         cursor.execute("ROLLBACK;")
         return False, str(err)
+
+
+def check_for_revoked_tokens(app, jti):
+    try:
+        connection = sqlite3.connect(get_db_path(app))
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT * FROM revoked_tokens WHERE token_jti = ?", (jti,))
+        record = cursor.fetchone()
+
+        connection.close()
+
+        if record:
+            return True, "Token has been revoked"
+
+        return False, "Token is not revoked"
+
+    except sqlite3.Error as err:
+        return False, str(err)

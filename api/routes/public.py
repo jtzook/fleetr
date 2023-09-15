@@ -1,12 +1,11 @@
 from flask import Blueprint, jsonify, request, current_app
-from flask_jwt_extended import (
-    create_access_token,
-    create_refresh_token,
-)
+from flask_jwt_extended import create_access_token, create_refresh_token
 from email_validator import validate_email, EmailNotValidError
 from werkzeug.security import generate_password_hash
-from database.db_client import register_user
-from database.db_client import check_user_credentials
+from database.db_client import (
+    register_user,
+    check_user_credentials,
+)
 
 public_routes = Blueprint("public", __name__)
 
@@ -59,6 +58,7 @@ def login():
     if is_authenticated:
         access_token = create_access_token(identity=email)
         refresh_token = create_refresh_token(identity=email)
+
         return jsonify(access_token=access_token, refresh_token=refresh_token), 200
 
     return jsonify({"msg": "Incorrect email or password. Please try again."}), 401
