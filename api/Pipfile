@@ -9,6 +9,7 @@ flask-jwt-extended = "*"
 email-validator = "*"
 python-dotenv = "*"
 werkzeug = "*"
+scrypt = "*"
 
 [dev-packages]
 
