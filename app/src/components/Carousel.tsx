@@ -44,8 +44,10 @@ export default function Carousel({ notes }: CarouselProps) {
   // Keyboard event handler
   const handleKeyDown = (e: any) => {
     if (e.key === 'ArrowRight' && rightButtonRef.current) {
+      e.preventDefault()
       scrollSlide('right')
     } else if (e.key === 'ArrowLeft' && leftButtonRef.current) {
+      e.preventDefault()
       scrollSlide('left')
     }
   }
