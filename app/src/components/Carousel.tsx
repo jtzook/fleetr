@@ -24,28 +24,14 @@ export default function Carousel({ notes }: CarouselProps) {
 
   const viewport = useRef<HTMLDivElement>(null)
 
-  // Scroll to the right by one slide's width
-  const scrollRight = () => {
+  const scrollSlide = (direction: 'right' | 'left') => {
     if (viewport.current) {
       const currentX = viewport.current.scrollLeft
 
-      if (currentX % slideWidth === 0) {
+      if (currentX === 0 || currentX % slideWidth === 0) {
+        const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
         viewport.current.scrollBy({
-          left: slideWidth,
-          behavior: 'smooth',
-        })
-      }
-    }
-  }
-
-  // Scroll to the left by one slide's width
-  const scrollLeft = () => {
-    if (viewport.current) {
-      const currentX = viewport.current.scrollLeft
-
-      if (currentX % slideWidth === 0) {
-        viewport.current.scrollBy({
-          left: -slideWidth,
+          left: scrollAmount,
           behavior: 'smooth',
         })
       }
@@ -58,9 +44,9 @@ export default function Carousel({ notes }: CarouselProps) {
   // Keyboard event handler
   const handleKeyDown = (e: any) => {
     if (e.key === 'ArrowRight' && rightButtonRef.current) {
-      scrollRight()
+      scrollSlide('right')
     } else if (e.key === 'ArrowLeft' && leftButtonRef.current) {
-      scrollLeft()
+      scrollSlide('left')
     }
   }
 
@@ -83,7 +69,7 @@ export default function Carousel({ notes }: CarouselProps) {
       spacing={0}
       noWrap={true}
     >
-      <ActionIcon ref={leftButtonRef} onClick={scrollLeft}>
+      <ActionIcon ref={leftButtonRef} onClick={() => scrollSlide('left')}>
         <IconCaretLeft />
       </ActionIcon>
       <Stack
@@ -135,7 +121,7 @@ export default function Carousel({ notes }: CarouselProps) {
           <IconCaretDown />
         </ActionIcon>
       </Stack>
-      <ActionIcon ref={rightButtonRef} onClick={scrollRight}>
+      <ActionIcon ref={rightButtonRef} onClick={() => scrollSlide('right')}>
         <IconCaretRight />
       </ActionIcon>
     </Group>
