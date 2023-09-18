@@ -1,4 +1,4 @@
-import { Group, Stack, ScrollArea, ActionIcon, Paper } from '@mantine/core'
+import { Group, Stack, ScrollArea, ActionIcon } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { createRef, useEffect, useRef, useState } from 'react'
 import {
@@ -27,17 +27,16 @@ export default function Carousel({ notes }: CarouselProps) {
   const [currentSlideId, setCurrentSlideId] = useState(0)
 
   const scrollSlide = (direction: 'right' | 'left') => {
-    if (direction === 'right' && currentSlideId < notes.length - 1) {
-      setCurrentSlideId((id) => id + 1)
-    } else if (direction === 'left' && currentSlideId > 0) {
-      setCurrentSlideId((id) => id - 1)
-    } else {
-      return
-    }
-
     if (viewport.current) {
-      const currentX = viewport.current.scrollLeft
+      if (direction === 'right' && currentSlideId < notes.length - 1) {
+        setCurrentSlideId((id) => id + 1)
+      } else if (direction === 'left' && currentSlideId > 0) {
+        setCurrentSlideId((id) => id - 1)
+      } else {
+        return
+      }
 
+      const currentX = viewport.current.scrollLeft
       if (currentX === 0 || currentX % slideWidth === 0) {
         const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
         viewport.current.scrollBy({
