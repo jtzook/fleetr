@@ -27,24 +27,33 @@ export default function Carousel({ notes }: CarouselProps) {
   const [currentSlideId, setCurrentSlideId] = useState(0)
 
   const scrollSlide = (direction: 'right' | 'left') => {
-    if (viewport.current) {
-      if (direction === 'right' && currentSlideId < notes.length - 1) {
-        setCurrentSlideId((id) => id + 1)
-      } else if (direction === 'left' && currentSlideId > 0) {
-        setCurrentSlideId((id) => id - 1)
-      } else {
-        return
-      }
-
-      const currentX = viewport.current.scrollLeft
-      if (currentX === 0 || currentX % slideWidth === 0) {
-        const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
-        viewport.current.scrollBy({
-          left: scrollAmount,
-          behavior: 'smooth',
-        })
-      }
+    if (!viewport.current) {
+      return
     }
+
+    const currentX = viewport.current.scrollLeft
+    if (currentX % slideWidth !== 0) {
+      // Only scroll if the currentX position is at a "stop point"
+      return
+    }
+
+    // Define the boundaries for scrolling
+    const maxScrollX = (notes.length - 1) * slideWidth
+    const minScrollX = 0
+
+    // Calculate the new scroll position
+    const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
+    let newScrollX = currentX + scrollAmount
+
+    // Clamp the new scroll position to the boundaries
+    newScrollX = Math.max(minScrollX, Math.min(maxScrollX, newScrollX))
+    viewport.current.scrollBy({
+      left: newScrollX - currentX,
+      behavior: 'smooth',
+    })
+
+    // Update the current slide
+    setCurrentSlideId(Math.round(newScrollX / slideWidth))
   }
 
   const leftButtonRef = useRef<HTMLButtonElement>(null)
@@ -69,25 +78,6 @@ export default function Carousel({ notes }: CarouselProps) {
     }
   }, [])
 
-  const [slideRefs, setSlideRefs] = useState<React.RefObject<HTMLDivElement>[]>(
-    []
-  )
-
-  // Create or update refs array
-  useEffect(() => {
-    setSlideRefs((refs) =>
-      Array(notes.length)
-        .fill(0)
-        .map((_, i) => refs[i] ?? createRef<HTMLDivElement>())
-    )
-  }, [notes])
-
-  useEffect(() => {
-    if (slideRefs[currentSlideId]?.current) {
-      slideRefs[currentSlideId].current?.focus()
-    }
-  }, [currentSlideId, slideRefs])
-
   return (
     <Group
       className='hide-scrollbar'
@@ -109,6 +99,7 @@ export default function Carousel({ notes }: CarouselProps) {
         }}
         spacing={0}
       >
+        {currentSlideId}
         <ActionIcon
           style={{
             visibility: 'hidden',
@@ -138,9 +129,9 @@ export default function Carousel({ notes }: CarouselProps) {
                 note={note}
                 width={slideWidth}
                 height={slideHeight}
-                ref={
-                  index === currentSlideId ? slideRefs[currentSlideId] : null
-                }
+                // ref={
+                //   index === currentSlideId ? slideRefs[currentSlideId] : null
+                // }
               />
             ))}
           </Group>
