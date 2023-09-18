@@ -1,6 +1,6 @@
 import { Group, Stack, ScrollArea, ActionIcon, Paper } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
-import { useEffect, useRef } from 'react'
+import { createRef, useEffect, useRef, useState } from 'react'
 import {
   IconCaretDown,
   IconCaretLeft,
@@ -23,9 +23,18 @@ export default function Carousel({ notes }: CarouselProps) {
   const buttonOffset = isMobile ? 28 : 56
 
   const viewport = useRef<HTMLDivElement>(null)
-  const slideRef = useRef<HTMLDivElement>(null)
+
+  const [currentSlideId, setCurrentSlideId] = useState(0)
 
   const scrollSlide = (direction: 'right' | 'left') => {
+    if (direction === 'right' && currentSlideId < notes.length - 1) {
+      setCurrentSlideId((id) => id + 1)
+    } else if (direction === 'left' && currentSlideId > 0) {
+      setCurrentSlideId((id) => id - 1)
+    } else {
+      return
+    }
+
     if (viewport.current) {
       const currentX = viewport.current.scrollLeft
 
@@ -56,14 +65,29 @@ export default function Carousel({ notes }: CarouselProps) {
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
 
-    if (slideRef.current) {
-      slideRef.current.focus()
-    }
-
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
+
+  const [slideRefs, setSlideRefs] = useState<React.RefObject<HTMLDivElement>[]>(
+    []
+  )
+
+  // Create or update refs array
+  useEffect(() => {
+    setSlideRefs((refs) =>
+      Array(notes.length)
+        .fill(0)
+        .map((_, i) => refs[i] ?? createRef<HTMLDivElement>())
+    )
+  }, [notes])
+
+  useEffect(() => {
+    if (slideRefs[currentSlideId]?.current) {
+      slideRefs[currentSlideId].current?.focus()
+    }
+  }, [currentSlideId, slideRefs])
 
   return (
     <Group
@@ -115,7 +139,9 @@ export default function Carousel({ notes }: CarouselProps) {
                 note={note}
                 width={slideWidth}
                 height={slideHeight}
-                ref={index === 0 ? slideRef : null}
+                ref={
+                  index === currentSlideId ? slideRefs[currentSlideId] : null
+                }
               />
             ))}
           </Group>
