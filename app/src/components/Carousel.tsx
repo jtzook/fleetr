@@ -23,6 +23,7 @@ export default function Carousel({ notes }: CarouselProps) {
   const buttonOffset = isMobile ? 28 : 56
 
   const viewport = useRef<HTMLDivElement>(null)
+  const slideRef = useRef<HTMLDivElement>(null)
 
   const scrollSlide = (direction: 'right' | 'left') => {
     if (viewport.current) {
@@ -52,9 +53,12 @@ export default function Carousel({ notes }: CarouselProps) {
     }
   }
 
-  // Set up keyboard event listener
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
+
+    if (slideRef.current) {
+      slideRef.current.focus()
+    }
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
@@ -105,12 +109,13 @@ export default function Carousel({ notes }: CarouselProps) {
             noWrap={true}
             spacing={0}
           >
-            {notes.map((note) => (
+            {notes.map((note, index) => (
               <CarouselSlide
                 key={note.id}
                 note={note}
                 width={slideWidth}
                 height={slideHeight}
+                ref={index === 0 ? slideRef : null}
               />
             ))}
           </Group>
