@@ -11,47 +11,65 @@ import {
 import { Note } from '../types/NoteTypes'
 import CarouselSlide from './CarouselSlide'
 
+const getSlideDimensions = (isMobile: boolean) => ({
+  slideWidth: isMobile ? 330 : 660,
+  slideHeight: 360,
+  buttonOffset: isMobile ? 28 : 56,
+})
+
+// compute next slide ID and scroll position
+const computeNextSlideInfo = (
+  currentX: number,
+  slideWidth: number,
+  direction: 'right' | 'left'
+) => {
+  const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
+  const newScrollX = currentX + scrollAmount
+  const nextSlideId = Math.round(newScrollX / slideWidth)
+  return { newScrollX, nextSlideId }
+}
+
+const isScrollable = (
+  direction: 'right' | 'left',
+  nextSlideId: number,
+  notesLength: number
+) => {
+  if (direction === 'right' && nextSlideId === notesLength) return false
+  if (direction === 'left' && nextSlideId === -1) return false
+  return true
+}
+
 interface CarouselProps {
   notes: Note[]
 }
 
 export default function Carousel({ notes }: CarouselProps) {
   const isMobile = useMediaQuery('(max-width: 768px)')
-
-  const slideWidth = isMobile ? 330 : 660
-  const slideHeight = 360
-  const buttonOffset = isMobile ? 28 : 56
+  const { slideWidth, slideHeight, buttonOffset } = getSlideDimensions(isMobile)
 
   const viewport = useRef<HTMLDivElement>(null)
-
   const [currentSlideId, setCurrentSlideId] = useState(0)
 
   const scrollSlide = (direction: 'right' | 'left') => {
-    if (!viewport.current) {
-      return
-    }
+    if (!viewport.current) return
 
     const currentX = viewport.current.scrollLeft
-    const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
-    const newScrollX = currentX + scrollAmount
-    const nextSlideId = Math.round(newScrollX / slideWidth)
+    const { newScrollX, nextSlideId } = computeNextSlideInfo(
+      currentX,
+      slideWidth,
+      direction
+    )
 
-    // Exit early for edge cases
-    if (direction === 'right' && nextSlideId === notes.length) {
-      return
-    }
-    if (direction === 'left' && nextSlideId === -1) {
-      return
-    }
-
-    // Update the current slide ID
-    setCurrentSlideId(nextSlideId)
+    if (!isScrollable(direction, nextSlideId, notes.length)) return
 
     // Scroll the viewport
     viewport.current.scrollBy({
       left: newScrollX,
       behavior: 'smooth',
     })
+
+    // Update current slide ID
+    setCurrentSlideId(nextSlideId)
   }
 
   const slideRefs = notes.map(() => createRef<HTMLDivElement>())
@@ -59,7 +77,7 @@ export default function Carousel({ notes }: CarouselProps) {
     if (!slideRefs[currentSlideId].current) {
       return
     }
-
+    // focus on current slide so user can scroll
     slideRefs[currentSlideId].current?.focus()
   }, [currentSlideId])
 
@@ -87,7 +105,6 @@ export default function Carousel({ notes }: CarouselProps) {
 
   return (
     <Group
-      className='hide-scrollbar'
       style={{
         width: slideWidth + buttonOffset,
         height: slideHeight + buttonOffset,
