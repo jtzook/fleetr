@@ -34,31 +34,28 @@ export default function Carousel({ notes }: CarouselProps) {
     console.log('\nscroll', direction)
 
     const currentX = viewport.current.scrollLeft
-    console.log('currentX', currentX)
-    if (currentX % slideWidth !== 0) {
-      // Only scroll if the currentX position is at a "stop point"
+
+    if (
+      (currentX === 0 && direction === 'left') ||
+      (currentX === viewport.current.scrollWidth - slideWidth &&
+        direction === 'right')
+    ) {
+      console.log('currentX is at the edge')
       return
     }
 
     console.log('currentX is at a stop point')
 
-    // Define the boundaries for scrolling
-    const maxScrollX = (notes.length - 1) * slideWidth
-    const minScrollX = 0
-
     // Calculate the new scroll position
     const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
-    let newScrollX = currentX + scrollAmount
 
     // Clamp the new scroll position to the boundaries
-    newScrollX = Math.max(minScrollX, Math.min(maxScrollX, newScrollX))
-    console.log('newScrollX - currentX', newScrollX - currentX)
+    const newScrollX = currentX + scrollAmount
+
     viewport.current.scrollBy({
-      left: newScrollX - currentX,
+      left: newScrollX,
       behavior: 'smooth',
     })
-
-    console.log('new currentX', newScrollX, '\n')
 
     // Update the current slide
     setCurrentSlideId(Math.round(newScrollX / slideWidth))
@@ -126,21 +123,13 @@ export default function Carousel({ notes }: CarouselProps) {
           <IconCaretUp />
         </ActionIcon>
         <ScrollArea
-          className='hide-scrollbar'
           style={{
             width: slideWidth,
             height: slideHeight,
           }}
           viewportRef={viewport}
         >
-          <Group
-            className='hide-scrollbar'
-            style={{
-              width: slideWidth * notes.length,
-            }}
-            noWrap={true}
-            spacing={0}
-          >
+          <Group noWrap={true} spacing={0}>
             {notes.map((note, index) => (
               <CarouselSlide
                 key={note.id}
