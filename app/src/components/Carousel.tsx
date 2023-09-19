@@ -31,11 +31,16 @@ export default function Carousel({ notes }: CarouselProps) {
       return
     }
 
+    console.log('\nscroll', direction)
+
     const currentX = viewport.current.scrollLeft
+    console.log('currentX', currentX)
     if (currentX % slideWidth !== 0) {
       // Only scroll if the currentX position is at a "stop point"
       return
     }
+
+    console.log('currentX is at a stop point')
 
     // Define the boundaries for scrolling
     const maxScrollX = (notes.length - 1) * slideWidth
@@ -47,10 +52,13 @@ export default function Carousel({ notes }: CarouselProps) {
 
     // Clamp the new scroll position to the boundaries
     newScrollX = Math.max(minScrollX, Math.min(maxScrollX, newScrollX))
+    console.log('newScrollX - currentX', newScrollX - currentX)
     viewport.current.scrollBy({
       left: newScrollX - currentX,
       behavior: 'smooth',
     })
+
+    console.log('new currentX', newScrollX, '\n')
 
     // Update the current slide
     setCurrentSlideId(Math.round(newScrollX / slideWidth))

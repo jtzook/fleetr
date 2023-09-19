@@ -13,9 +13,6 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
     return (
       <Paper
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           width,
           height,
           fontSize: '2rem',
@@ -24,17 +21,18 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
         }}
       >
         <div
-          ref={ref}
-          tabIndex={0} // Make the div focusable
           style={{
             overflowY: 'auto',
             padding: 16,
-            width: '100%',
+
             height,
           }}
         >
           <h1>{note.title}</h1>
-          <p>{note.text}</p>
+
+          <p ref={ref} tabIndex={0}>
+            {note.text}
+          </p>
         </div>
       </Paper>
     )
