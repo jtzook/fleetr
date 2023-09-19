@@ -31,34 +31,27 @@ export default function Carousel({ notes }: CarouselProps) {
       return
     }
 
-    console.log('\nscroll', direction)
-
     const currentX = viewport.current.scrollLeft
+    const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
+    const newScrollX = currentX + scrollAmount
+    const nextSlideId = Math.round(newScrollX / slideWidth)
 
-    if (
-      (currentX === 0 && direction === 'left') ||
-      (currentX === viewport.current.scrollWidth - slideWidth &&
-        direction === 'right')
-    ) {
-      console.log('currentX is at the edge')
+    // Exit early for edge cases
+    if (direction === 'right' && nextSlideId === notes.length) {
+      return
+    }
+    if (direction === 'left' && nextSlideId === -1) {
       return
     }
 
-    console.log('currentX is at a stop point')
+    // Update the current slide ID
+    setCurrentSlideId(nextSlideId)
 
-    // Calculate the new scroll position
-    const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
-
-    // Clamp the new scroll position to the boundaries
-    const newScrollX = currentX + scrollAmount
-
+    // Scroll the viewport
     viewport.current.scrollBy({
       left: newScrollX,
       behavior: 'smooth',
     })
-
-    // Update the current slide
-    setCurrentSlideId(Math.round(newScrollX / slideWidth))
   }
 
   const slideRefs = notes.map(() => createRef<HTMLDivElement>())
