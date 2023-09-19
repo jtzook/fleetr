@@ -56,6 +56,15 @@ export default function Carousel({ notes }: CarouselProps) {
     setCurrentSlideId(Math.round(newScrollX / slideWidth))
   }
 
+  const slideRefs = notes.map(() => createRef<HTMLDivElement>())
+  useEffect(() => {
+    if (!slideRefs[currentSlideId].current) {
+      return
+    }
+
+    slideRefs[currentSlideId].current?.focus()
+  }, [currentSlideId])
+
   const leftButtonRef = useRef<HTMLButtonElement>(null)
   const rightButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -100,6 +109,7 @@ export default function Carousel({ notes }: CarouselProps) {
         spacing={0}
       >
         {currentSlideId}
+
         <ActionIcon
           style={{
             visibility: 'hidden',
@@ -129,9 +139,9 @@ export default function Carousel({ notes }: CarouselProps) {
                 note={note}
                 width={slideWidth}
                 height={slideHeight}
-                // ref={
-                //   index === currentSlideId ? slideRefs[currentSlideId] : null
-                // }
+                ref={
+                  index === currentSlideId ? slideRefs[currentSlideId] : null
+                }
               />
             ))}
           </Group>
