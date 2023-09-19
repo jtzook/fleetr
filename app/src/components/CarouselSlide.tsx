@@ -19,12 +19,16 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
           fontWeight: 700,
           color: 'white',
           overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <div
           style={{
             padding: 16,
             height,
+            width: width - 8,
           }}
         >
           <h1>{note.title}</h1>
