@@ -13,34 +13,31 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
     return (
       <Paper
         style={{
+          padding: 16,
           width,
           height,
-          fontSize: '2rem',
+          minHeight: height,
+          fontSize: '2em',
           fontWeight: 700,
           color: 'white',
+          backgroundColor: 'red',
+          border: '1px solid white',
           overflow: 'hidden',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
+        ref={ref}
+        tabIndex={0}
       >
-        <div
+        <h1>{note.title}</h1>
+
+        <p
           style={{
-            padding: 16,
             height,
-            width: width - 8,
+            overflowY: 'auto',
+            overflowX: 'hidden',
           }}
         >
-          <h1>{note.title}</h1>
-
-          <p
-            ref={ref}
-            tabIndex={0}
-            style={{ overflowY: 'auto', maxHeight: 'calc(100% - 2rem)' }}
-          >
-            {note.text}
-          </p>
-        </div>
+          {note.text}
+        </p>
       </Paper>
     )
   }
