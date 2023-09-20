@@ -11,35 +11,31 @@ interface CarouselSlideProps {
 const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
   ({ note, width, height }, ref) => {
     return (
-      <Paper
+      <ScrollArea
         style={{
-          width,
           height,
           minHeight: height,
-
+          width,
+          fontSize: '2em',
+          fontWeight: 700,
+          color: 'white',
+          padding: 0,
+          overflowY: 'auto',
           backgroundColor: 'cyan',
         }}
+        type='auto'
       >
-        <ScrollArea
+        <Paper
           style={{
-            height,
-            width,
-            fontSize: '2em',
-            fontWeight: 700,
-            color: 'white',
-            padding: 0,
-            overflowY: 'auto',
+            minHeight: height,
           }}
-          type='always'
-          // ref={ref}
-          // tabIndex={0}
+          ref={ref}
+          tabIndex={0}
         >
-          <div ref={ref} tabIndex={0}>
-            <h1>{note.title}</h1>
-            <p>{note.text}</p>
-          </div>
-        </ScrollArea>
-      </Paper>
+          <h1>{note.title}</h1>
+          <p>{note.text}</p>
+        </Paper>
+      </ScrollArea>
     )
   }
 )
