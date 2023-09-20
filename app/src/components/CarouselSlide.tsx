@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { Paper } from '@mantine/core'
+import { Paper, ScrollArea } from '@mantine/core'
 import { Note } from '../types/NoteTypes'
 
 interface CarouselSlideProps {
@@ -11,32 +11,36 @@ interface CarouselSlideProps {
 const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
   ({ note, width, height }, ref) => {
     return (
-      <div
+      <ScrollArea
         style={{
-          padding: 16,
+          padding: 8,
           width,
           height,
           overflow: 'hidden',
+          backgroundColor: 'salmon',
         }}
       >
         <Paper
           style={{
-            height,
-            overflowY: 'auto',
+            height: height - 16,
+            overflow: 'hidden',
             fontSize: '2em',
             fontWeight: 700,
             color: 'white',
-            backgroundColor: 'red',
-            border: '1px solid white',
+            backgroundColor: 'cyan',
             padding: 16,
           }}
-          ref={ref}
-          tabIndex={0}
         >
-          <h1>{note.title}</h1>
-          <p>{note.text}</p>
+          <div
+            style={{ overflowY: 'auto', height: height - 16 }}
+            ref={ref}
+            tabIndex={0}
+          >
+            <h1>{note.title}</h1>
+            <p>{note.text}</p>
+          </div>
         </Paper>
-      </div>
+      </ScrollArea>
     )
   }
 )
