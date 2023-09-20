@@ -17,8 +17,7 @@ const getSlideDimensions = (isMobile: boolean) => ({
   buttonOffset: isMobile ? 28 : 56,
 })
 
-// compute next slide ID and scroll position
-const computeNextSlideInfo = (
+const getNextSlideId = (
   currentX: number,
   slideWidth: number,
   direction: 'right' | 'left'
@@ -26,7 +25,7 @@ const computeNextSlideInfo = (
   const scrollAmount = direction === 'right' ? slideWidth : -slideWidth
   const newScrollX = currentX + scrollAmount
   const nextSlideId = Math.round(newScrollX / slideWidth)
-  return { newScrollX, nextSlideId }
+  return nextSlideId
 }
 
 const isScrollable = (
@@ -55,11 +54,7 @@ export default function Carousel({ notes }: CarouselProps) {
     if (!viewport.current) return
 
     const currentX = viewport.current.scrollLeft
-    const { newScrollX, nextSlideId } = computeNextSlideInfo(
-      currentX,
-      slideWidth,
-      direction
-    )
+    const nextSlideId = getNextSlideId(currentX, slideWidth, direction)
 
     if (!isScrollable(direction, nextSlideId, notes.length)) return
 
