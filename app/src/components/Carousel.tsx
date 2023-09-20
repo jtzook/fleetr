@@ -49,6 +49,7 @@ export default function Carousel({ notes }: CarouselProps) {
 
   const viewport = useRef<HTMLDivElement>(null)
   const [currentSlideId, setCurrentSlideId] = useState(0)
+  const [nextSlideId, setNextSlideId] = useState(0)
 
   const scrollSlide = (direction: 'right' | 'left') => {
     if (!viewport.current) return
@@ -62,29 +63,37 @@ export default function Carousel({ notes }: CarouselProps) {
 
     if (!isScrollable(direction, nextSlideId, notes.length)) return
 
-    // Scroll the viewport
-    viewport.current.scrollBy({
-      left: newScrollX,
+    setNextSlideId(nextSlideId)
+  }
+
+  useEffect(() => {
+    if (!viewport.current) return
+
+    if (nextSlideId === currentSlideId) return
+
+    // scroll to the next slide
+    viewport.current.scrollTo({
+      left: slideWidth * nextSlideId,
       behavior: 'smooth',
     })
 
-    // Update current slide ID
     setCurrentSlideId(nextSlideId)
-  }
+  }, [nextSlideId])
+
+  useEffect(() => {
+    if (!viewport.current) return
+
+    // focus on the (new) current slide
+    if (slideRefs[currentSlideId].current) {
+      slideRefs[currentSlideId].current?.focus()
+    }
+  }, [currentSlideId])
 
   const slideRefs = notes.map(() => createRef<HTMLDivElement>())
-  useEffect(() => {
-    if (!slideRefs[currentSlideId].current) {
-      return
-    }
-    // focus on current slide so user can scroll
-    slideRefs[currentSlideId].current?.focus()
-  }, [currentSlideId])
 
   const leftButtonRef = useRef<HTMLButtonElement>(null)
   const rightButtonRef = useRef<HTMLButtonElement>(null)
 
-  // Keyboard event handler
   const handleKeyDown = (e: any) => {
     if (e.key === 'ArrowRight' && rightButtonRef.current) {
       e.preventDefault()
