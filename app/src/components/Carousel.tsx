@@ -47,6 +47,8 @@ export default function Carousel({ notes }: CarouselProps) {
   const { slideWidth, slideHeight, buttonOffset } = getSlideDimensions(isMobile)
 
   const viewport = useRef<HTMLDivElement>(null)
+  const slideRefs = notes.map(() => createRef<HTMLDivElement>())
+
   const [currentSlideId, setCurrentSlideId] = useState(0)
   const [nextSlideId, setNextSlideId] = useState(0)
 
@@ -78,13 +80,13 @@ export default function Carousel({ notes }: CarouselProps) {
   useEffect(() => {
     if (!viewport.current) return
 
-    // focus on the (new) current slide
+    // focus on the current slide so user can use arrow keys to navigate
     if (slideRefs[currentSlideId].current) {
-      slideRefs[currentSlideId].current?.focus()
+      setTimeout(() => {
+        slideRefs[currentSlideId].current?.focus()
+      }, 300)
     }
   }, [currentSlideId])
-
-  const slideRefs = notes.map(() => createRef<HTMLDivElement>())
 
   const leftButtonRef = useRef<HTMLButtonElement>(null)
   const rightButtonRef = useRef<HTMLButtonElement>(null)
