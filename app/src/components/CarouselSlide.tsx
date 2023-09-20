@@ -22,14 +22,13 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
           color: 'white',
           backgroundColor: 'red',
           border: '1px solid white',
-          // overflow: 'hidden',
+          overflow: 'hidden',
         }}
       >
         <Paper
           style={{
-            minHeight: height,
+            height,
             overflowY: 'auto',
-            overflowX: 'hidden',
           }}
           ref={ref}
           tabIndex={0}
