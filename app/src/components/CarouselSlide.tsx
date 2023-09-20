@@ -16,12 +16,6 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
           padding: 16,
           width,
           height,
-          minHeight: height,
-          fontSize: '2em',
-          fontWeight: 700,
-          color: 'white',
-          backgroundColor: 'red',
-          border: '1px solid white',
           overflow: 'hidden',
         }}
       >
@@ -29,6 +23,12 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
           style={{
             height,
             overflowY: 'auto',
+            fontSize: '2em',
+            fontWeight: 700,
+            color: 'white',
+            backgroundColor: 'red',
+            border: '1px solid white',
+            padding: 16,
           }}
           ref={ref}
           tabIndex={0}
