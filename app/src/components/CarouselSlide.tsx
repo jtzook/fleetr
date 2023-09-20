@@ -11,7 +11,7 @@ interface CarouselSlideProps {
 const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
   ({ note, width, height }, ref) => {
     return (
-      <Paper
+      <div
         style={{
           padding: 16,
           width,
@@ -22,23 +22,22 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
           color: 'white',
           backgroundColor: 'red',
           border: '1px solid white',
-          overflow: 'hidden',
+          // overflow: 'hidden',
         }}
-        ref={ref}
-        tabIndex={0}
       >
-        <h1>{note.title}</h1>
-
-        <p
+        <Paper
           style={{
-            height,
+            minHeight: height,
             overflowY: 'auto',
             overflowX: 'hidden',
           }}
+          ref={ref}
+          tabIndex={0}
         >
-          {note.text}
-        </p>
-      </Paper>
+          <h1>{note.title}</h1>
+          <p>{note.text}</p>
+        </Paper>
+      </div>
     )
   }
 )
