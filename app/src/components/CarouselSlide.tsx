@@ -28,6 +28,7 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
         <Paper
           style={{
             minHeight: height,
+            overflow: 'hidden',
           }}
           ref={ref}
           tabIndex={0}
