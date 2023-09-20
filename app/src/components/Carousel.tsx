@@ -66,19 +66,15 @@ export default function Carousel({ notes }: CarouselProps) {
   useEffect(() => {
     if (!viewport.current) return
 
-    if (nextSlideId === currentSlideId) return
-
     // scroll to the next slide
-    viewport.current.scrollTo({
-      left: slideWidth * nextSlideId,
-      behavior: 'smooth',
-    })
+    if (nextSlideId !== currentSlideId) {
+      viewport.current.scrollTo({
+        left: slideWidth * nextSlideId,
+        behavior: 'smooth',
+      })
 
-    setCurrentSlideId(nextSlideId)
-  }, [nextSlideId])
-
-  useEffect(() => {
-    if (!viewport.current) return
+      setCurrentSlideId(nextSlideId)
+    }
 
     // focus on the current slide so user can use arrow keys to navigate
     if (slideRefs[currentSlideId].current) {
@@ -86,7 +82,7 @@ export default function Carousel({ notes }: CarouselProps) {
         slideRefs[currentSlideId].current?.focus()
       }, 300)
     }
-  }, [currentSlideId])
+  }, [nextSlideId, currentSlideId])
 
   const leftButtonRef = useRef<HTMLButtonElement>(null)
   const rightButtonRef = useRef<HTMLButtonElement>(null)
