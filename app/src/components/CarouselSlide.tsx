@@ -15,7 +15,6 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
         style={{
           height,
           width,
-          overflowX: 'hidden',
         }}
         type='auto'
       >

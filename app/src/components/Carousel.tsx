@@ -131,6 +131,7 @@ export default function Carousel({ notes }: CarouselProps) {
             height: slideHeight,
           }}
           viewportRef={viewport}
+          type='never'
         >
           <Group noWrap={true} spacing={0}>
             {notes.map((note, index) => (
