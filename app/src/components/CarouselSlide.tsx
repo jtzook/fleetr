@@ -14,14 +14,7 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
       <ScrollArea
         style={{
           height,
-          minHeight: height,
           width,
-          fontSize: '2em',
-          fontWeight: 700,
-          color: 'white',
-          padding: 0,
-          overflowY: 'auto',
-          backgroundColor: 'cyan',
         }}
         type='auto'
       >
@@ -29,6 +22,9 @@ const CarouselSlide = forwardRef<HTMLDivElement, CarouselSlideProps>(
           style={{
             minHeight: height,
             overflow: 'hidden',
+            fontSize: '2em',
+            fontWeight: 700,
+            padding: 16,
           }}
           ref={ref}
           tabIndex={0}
