@@ -117,16 +117,7 @@ export default function Carousel({ notes }: CarouselProps) {
       <ActionIcon ref={leftButtonRef} onClick={() => scrollSlide('left')}>
         <IconCaretLeft />
       </ActionIcon>
-      <Stack
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        spacing={0}
-      >
-        {currentSlideId}
-
+      <Stack>
         <ActionIcon
           style={{
             visibility: 'hidden',
