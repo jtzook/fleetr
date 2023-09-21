@@ -1,18 +1,18 @@
-import { useEffect } from 'react'
+import { Box, Button, Stack } from '@mantine/core'
+import { useState } from 'react'
 
 export default function WelcomePage() {
-  useEffect(() => {
-    fetch('http://localhost:5000/')
-      .then((response) => response.json())
-      .then((data) => {
-        // Do something with the data
-        console.log(data)
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error fetching data:', error)
-      })
-  }, [])
+  const [hello, setHello] = useState('')
+
+  const fetchHello = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/')
+      const { msg } = await response.json()
+      setHello(msg)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
 
   return (
     <main
@@ -23,7 +23,19 @@ export default function WelcomePage() {
         justifyContent: 'center',
       }}
     >
-      <h1>Welcome to Mantine</h1>
+      <Stack>
+        <Box h={250}>
+          <p>{hello}</p>
+        </Box>
+        <Button
+          onClick={() => {
+            fetchHello()
+          }}
+          w={100}
+        >
+          Hello
+        </Button>
+      </Stack>
     </main>
   )
 }
