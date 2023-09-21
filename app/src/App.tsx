@@ -1,6 +1,7 @@
 import { AppShell, Footer, Header, MantineProvider } from '@mantine/core'
 
 import HomePage from './pages/HomePage'
+import WelcomePage from './pages/WelcomePage'
 
 export default function App() {
   return (
@@ -30,7 +31,8 @@ export default function App() {
           },
         })}
       >
-        <HomePage />
+        <WelcomePage />
+        {/* <HomePage /> */}
       </AppShell>
     </MantineProvider>
   )
