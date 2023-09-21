@@ -13,6 +13,7 @@ app.config.from_object(Config)
 
 CORS(
     app,
+    supports_credentials=True,
     resources={r"/*": {"origins": app.config["ALLOWED_ORIGIN"]}},
 )
 

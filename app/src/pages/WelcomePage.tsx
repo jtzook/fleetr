@@ -1,14 +1,27 @@
 import { Box, Button, Stack } from '@mantine/core'
-import { useState } from 'react'
 
 export default function WelcomePage() {
-  const [hello, setHello] = useState('')
-
-  const fetchHello = async () => {
+  const login = async (email: string, password: string) => {
     try {
-      const response = await fetch('http://localhost:5000/')
-      const { msg } = await response.json()
-      setHello(msg)
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+        credentials: 'include', // include credentials for cross-origin requests
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        console.log('Logged in successfully', data)
+      } else {
+        console.error('Login failed:', data.error)
+      }
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -24,12 +37,18 @@ export default function WelcomePage() {
       }}
     >
       <Stack>
-        <Box h={250}>
-          <p>{hello}</p>
+        <Box
+          h={250}
+          w={500}
+          style={{
+            wordBreak: 'break-all',
+          }}
+        >
+          hi
         </Box>
         <Button
           onClick={() => {
-            fetchHello()
+            login('', '')
           }}
           w={100}
         >

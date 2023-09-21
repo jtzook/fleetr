@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, current_app
+from flask import Blueprint, jsonify, request, current_app, make_response
 from flask_jwt_extended import create_access_token, create_refresh_token
 from email_validator import validate_email, EmailNotValidError
 from werkzeug.security import generate_password_hash
@@ -59,6 +59,18 @@ def login():
         access_token = create_access_token(identity=user_id)
         refresh_token = create_refresh_token(identity=user_id)
 
-        return jsonify(access_token=access_token, refresh_token=refresh_token), 200
+        response = make_response(jsonify({"message": "Logged in successfully"}))
+        response.set_cookie(
+            "access_token", access_token, httponly=True, secure=True, samesite="Strict"
+        )
+        response.set_cookie(
+            "refresh_token",
+            refresh_token,
+            httponly=True,
+            secure=True,
+            samesite="Strict",
+        )
+
+        return response
 
     return jsonify({"msg": "Incorrect email or password. Please try again."}), 401
