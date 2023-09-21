@@ -87,7 +87,7 @@ export default function Carousel({ notes }: CarouselProps) {
   const leftButtonRef = useRef<HTMLButtonElement>(null)
   const rightButtonRef = useRef<HTMLButtonElement>(null)
 
-  const handleKeyDown = (e: any) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'ArrowRight' && rightButtonRef.current) {
       e.preventDefault()
       scrollSlide('right')
