@@ -58,6 +58,7 @@ def login():
     if is_authenticated:
         access_token = create_access_token(identity=user_id)
         refresh_token = create_refresh_token(identity=user_id)
+        csrf_token = create_access_token(identity=user_id, expires_delta=False)
 
         response = make_response(jsonify({"message": "Logged in successfully"}))
         response.set_cookie(
@@ -67,6 +68,13 @@ def login():
             "refresh_token",
             refresh_token,
             httponly=True,
+            secure=True,
+            samesite="Strict",
+        )
+        response.set_cookie(
+            "csrf_token",
+            csrf_token,
+            httponly=False,  # Make it accessible to JavaScript
             secure=True,
             samesite="Strict",
         )

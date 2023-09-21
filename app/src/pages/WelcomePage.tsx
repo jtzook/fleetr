@@ -27,6 +27,39 @@ export default function WelcomePage() {
     }
   }
 
+  const refresh = async () => {
+    const csrfToken = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('csrf_token='))
+      ?.split('=')[1]
+
+    if (!csrfToken) {
+      console.error('CSRF token not found')
+      return
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/refresh', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
+        },
+        credentials: 'include', // include credentials for cross-origin requests
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        console.log('Token refreshed successfully', data)
+      } else {
+        console.error('Token refresh failed:', data.error)
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
   return (
     <main
       style={{
@@ -38,7 +71,7 @@ export default function WelcomePage() {
     >
       <Stack>
         <Box
-          h={250}
+          h={150}
           w={500}
           style={{
             wordBreak: 'break-all',
@@ -49,6 +82,7 @@ export default function WelcomePage() {
         <Button
           onClick={() => {
             login('', '')
+            // refresh()
           }}
           w={100}
         >

@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
+
 from database.db_client import init_db
 from routes.public import public_routes
 from routes.protected import protected_routes
@@ -14,7 +15,12 @@ app.config.from_object(Config)
 CORS(
     app,
     supports_credentials=True,
-    resources={r"/*": {"origins": app.config["ALLOWED_ORIGIN"]}},
+    resources={
+        r"/*": {
+            "origins": app.config["ALLOWED_ORIGIN"],
+            "allow_headers": "X-CSRF-Token",
+        }
+    },
 )
 
 # register routes
