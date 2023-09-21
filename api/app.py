@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from database.db_client import init_db
 from routes.public import public_routes
 from routes.protected import protected_routes
@@ -7,8 +8,13 @@ from configs.app_config import Config
 
 app = Flask(__name__)
 
-# configure app
+# add configs to app
 app.config.from_object(Config)
+
+CORS(
+    app,
+    resources={r"/*": {"origins": app.config["ALLOWED_ORIGIN"]}},
+)
 
 # register routes
 app.register_blueprint(public_routes)

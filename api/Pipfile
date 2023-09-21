@@ -10,6 +10,7 @@ email-validator = "*"
 python-dotenv = "*"
 werkzeug = "*"
 scrypt = "*"
+flask-cors = "*"
 
 [dev-packages]
 
