@@ -18,7 +18,7 @@ CORS(
     resources={
         r"/*": {
             "origins": app.config["ALLOWED_ORIGIN"],
-            "allow_headers": "X-CSRF-Token",
+            "allow_headers": ["X-CSRF-Token", "Content-Type"],
         }
     },
 )

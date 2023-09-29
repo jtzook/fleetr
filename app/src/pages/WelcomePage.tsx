@@ -45,7 +45,7 @@ export default function WelcomePage() {
           'Content-Type': 'application/json',
           'X-CSRF-Token': csrfToken,
         },
-        credentials: 'include', // include credentials for cross-origin requests
+        credentials: 'include',
       })
 
       const data = await response.json()
@@ -54,6 +54,40 @@ export default function WelcomePage() {
         console.log('Token refreshed successfully', data)
       } else {
         console.error('Token refresh failed:', data.error)
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
+  const getProtectedData = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/protected', {
+        credentials: 'include',
+      })
+
+      const data = await res.json()
+
+      if (res.ok) {
+        console.log('Protected data:', data)
+      } else {
+        console.error('Protected data fetch failed:', data.error)
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
+  const getHelloData = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/')
+
+      const data = await res.json()
+
+      if (res.ok) {
+        console.log('Hello data:', data)
+      } else {
+        console.error('Hello data fetch failed:', data.error)
       }
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -81,12 +115,35 @@ export default function WelcomePage() {
         </Box>
         <Button
           onClick={() => {
-            login('', '')
-            // refresh()
+            getHelloData()
           }}
           w={100}
         >
           Hello
+        </Button>
+        <Button
+          onClick={() => {
+            login('', '')
+          }}
+          w={100}
+        >
+          Login
+        </Button>
+        <Button
+          onClick={() => {
+            refresh()
+          }}
+          w={100}
+        >
+          Refresh
+        </Button>
+        <Button
+          onClick={() => {
+            getProtectedData()
+          }}
+          w={100}
+        >
+          Get Data
         </Button>
       </Stack>
     </main>
