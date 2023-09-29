@@ -29,6 +29,7 @@ def init_jwt(app):
                                 jsonify({"msg": f"{token_name} has been revoked"}),
                                 401,
                             )
+                        return
                 else:
                     return jsonify({"msg": "No tokens present in the request"}), 401
 
