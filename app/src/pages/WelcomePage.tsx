@@ -41,10 +41,6 @@ export default function WelcomePage() {
     try {
       const response = await fetch('http://localhost:5000/api/refresh', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken,
-        },
         credentials: 'include',
       })
 

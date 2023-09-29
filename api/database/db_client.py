@@ -80,30 +80,22 @@ def check_user_credentials(app, email, password):
 
 # Atomicity can be a concern in operations like this where you want either both operations to succeed or neither.
 # we can use a transaction to ensure that both tokens are revoked or neither is revoked.
-def revoke_tokens(app, access_jti, refresh_jti):
+def revoke_token(app, token_jti):
     try:
         connection = sqlite3.connect(get_db_path(app))
         cursor = connection.cursor()
 
         cursor.execute("BEGIN TRANSACTION;")
 
-        # Revoke access token
         cursor.execute(
             "INSERT INTO revoked_tokens (token_jti, revoked_at) VALUES (?, ?)",
-            (access_jti, datetime.now()),
-        )
-
-        # Revoke refresh token
-        cursor.execute(
-            "INSERT INTO revoked_tokens (token_jti, revoked_at) VALUES (?, ?)",
-            (refresh_jti, datetime.now()),
+            (token_jti, datetime.now()),
         )
 
         cursor.execute("COMMIT;")
-
         connection.close()
 
-        return True, "Tokens revoked successfully"
+        return True, "Token revoked successfully"
 
     except sqlite3.Error as err:
         cursor.execute("ROLLBACK;")
