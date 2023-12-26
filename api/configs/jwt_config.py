@@ -27,8 +27,11 @@ def init_jwt(app):
                                 401,
                             )
 
-                        # revoke all tokens on refresh
-                        if request.path.startswith("/api/refresh"):
+                        # revoke tokens on refresh
+                        if (
+                            request.path.startswith("/api/refresh")
+                            and token_name != "refresh_token"
+                        ):
                             revoke_token(app, token_jti)
                     else:
                         return (

@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
+    decode_token,
 )
 from database.db_client import revoke_token, check_for_revoked_tokens
 
@@ -11,13 +12,13 @@ protected_routes = Blueprint("protected", __name__)
 @protected_routes.route("refresh", methods=["POST"])
 def refresh():
     try:
-        new_access_token = create_access_token(
-            identity="new_identity_here"
-        )  # Replace with actual identity
-        new_refresh_token = create_refresh_token(
-            identity="new_identity_here"
-        )  # Replace with actual identity
-        new_csrf_token = "new_csrf_token_here"  # Replace with actual CSRF token
+        existing_refresh_token = request.cookies.get("refresh_token")
+        decoded_token = decode_token(existing_refresh_token)
+        user_id = decoded_token["sub"]
+
+        new_access_token = create_access_token(identity=user_id)
+        new_refresh_token = create_refresh_token(identity=user_id)
+        new_csrf_token = "new_csrf_token_here"
 
         response = jsonify({"msg": "Refreshed"})
         response.set_cookie(

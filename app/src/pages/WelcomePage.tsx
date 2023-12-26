@@ -119,7 +119,7 @@ export default function WelcomePage() {
         </Button>
         <Button
           onClick={() => {
-            login('', '')
+            login('jaredzook@gmail.com', 'elephant')
           }}
           w={100}
         >
