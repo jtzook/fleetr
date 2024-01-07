@@ -1,27 +1,34 @@
 from django.db import models
 
+from api.constants import FleetTypeName
+from api.utils import get_friendly_timestamp
+
 
 class Fleet(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    text = models.CharField(max_length=1000, blank=True)
-    parent = models.ForeignKey(
-        "self", related_name="replies", on_delete=models.SET_NULL, null=True, blank=True
-    )
+    """
+    Represents a Fleet in the application.
+    """
+
+    title = models.CharField(max_length=100, default=get_friendly_timestamp)
+    text = models.CharField(max_length=1000)
+    description = models.CharField(max_length=280, blank=True)
+    score = models.IntegerField(default=0)
     is_deleted = models.BooleanField(default=False)
+    private = models.BooleanField(default=False)
+
     fleet_type = models.ForeignKey(
         "FleetType",
         related_name="fleets",
         on_delete=models.PROTECT,
         null=True,
     )
-    labels = models.ManyToManyField(
-        "FleetLabel",
-        related_name="fleets",
+    parent_fleet = models.ForeignKey(
+        "self",
+        related_name="children",
+        on_delete=models.SET_NULL,
+        null=True,
         blank=True,
     )
-    score = models.IntegerField(default=0)
-    private = models.BooleanField(default=False)
     quote_fleet = models.ForeignKey(
         "self",
         related_name="quoted_by",
@@ -29,15 +36,14 @@ class Fleet(models.Model):
         null=True,
         blank=True,
     )
+    labels = models.ManyToManyField("FleetLabel", related_name="fleets", blank=True)
     threads = models.ManyToManyField("Thread", related_name="fleets", blank=True)
-    notes = models.CharField(max_length=1000, blank=True)
-    metadata = models.JSONField(default=dict, blank=True)
+
+    meta = models.JSONField(default=dict, blank=True)
 
     class Meta:
         indexes = [
-            models.Index(
-                fields=["created", "updated"]
-            ),  # Indexing for improved query performance
+            models.Index(fields=["is_deleted", "private", "score"]),
         ]
 
     def __str__(self):
@@ -45,47 +51,61 @@ class Fleet(models.Model):
 
 
 class FleetLabel(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    text = models.CharField(max_length=100, blank=True)
-    notes = models.CharField(max_length=1000, blank=True)
+    """
+    Represents a label for a Fleet.
+    """
+
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=280, blank=True)
+    color = models.CharField(max_length=7, default="#000000")
+
+    meta = models.JSONField(default=dict, blank=True)
 
     class Meta:
-        indexes = [
-            models.Index(fields=["created", "updated"]),
-        ]
+        indexes = []
 
     def __str__(self):
-        return self.text
+        return self.name
 
 
 class FleetType(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    text = models.CharField(max_length=100, blank=True)
-    notes = models.CharField(max_length=1000, blank=True)
+    """
+    Represents a type of Fleet.
+    """
+
+    name = models.CharField(
+        max_length=100, blank=False, unique=True, default=FleetTypeName.DEFAULT
+    )
+    description = models.CharField(max_length=280, blank=True)
+    is_deleted = models.BooleanField(default=False)
+
+    meta = models.JSONField(default=dict, blank=True)
 
     class Meta:
         indexes = [
-            models.Index(fields=["created", "updated"]),
+            models.Index(fields=["name", "is_deleted"]),
         ]
 
     def __str__(self):
-        return self.text
+        return self.name
 
 
 class Thread(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    """
+    Represents a thread of Fleets.
+    """
+
     title = models.CharField(max_length=100, blank=True)
-    original_post = models.OneToOneField(
-        Fleet, on_delete=models.CASCADE, related_name="thread", null=True
-    )
+    description = models.CharField(max_length=280, blank=True)
+    fleets = models.ManyToManyField("Fleet", related_name="threads", blank=True)
+    is_deleted = models.BooleanField(default=False)
+
+    meta = models.JSONField(default=dict, blank=True)
 
     class Meta:
         indexes = [
-            models.Index(fields=["created"]),
+            models.Index(fields=["is_deleted"]),
         ]
 
     def __str__(self):
-        return self.title
+        return self.title or "Unnamed Thread"
