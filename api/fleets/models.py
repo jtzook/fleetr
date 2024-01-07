@@ -39,6 +39,9 @@ class Fleet(models.Model):
             ),  # Indexing for improved query performance
         ]
 
+    def __str__(self):
+        return self.text
+
 
 class FleetLabel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -50,6 +53,9 @@ class FleetLabel(models.Model):
         indexes = [
             models.Index(fields=["created", "updated"]),
         ]
+
+    def __str__(self):
+        return self.text
 
 
 class FleetType(models.Model):
@@ -63,10 +69,14 @@ class FleetType(models.Model):
             models.Index(fields=["created", "updated"]),
         ]
 
+    def __str__(self):
+        return self.text
+
 
 class Thread(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=100, blank=True)
     original_post = models.OneToOneField(
         Fleet, on_delete=models.CASCADE, related_name="thread", null=True
     )
@@ -75,3 +85,6 @@ class Thread(models.Model):
         indexes = [
             models.Index(fields=["created"]),
         ]
+
+    def __str__(self):
+        return self.title
