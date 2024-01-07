@@ -13,6 +13,7 @@ class Fleet(models.Model):
         "FleetType",
         related_name="fleets",
         on_delete=models.PROTECT,
+        null=True,
     )
     labels = models.ManyToManyField(
         "FleetLabel",
