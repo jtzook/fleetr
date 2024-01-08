@@ -1,6 +1,15 @@
-from enum import Enum
+from django.db import models
 
 
-class FleetTypeName(Enum):
-    DEFAULT = "Fleet"
-    SPECIAL = "Special"
+class FleetStatus(models.TextChoices):
+    ACTIVE = "active", "Active"
+    DELETED = "deleted", "Deleted"
+    HIDDEN = "hidden", "Hidden"
+    ARCHIVED = "archived", "Archived"
+
+
+class FleetThreadStatus(models.TextChoices):
+    ACTIVE = "active", "Active"
+    DELETED = "deleted", "Deleted"
+    HIDDEN = "hidden", "Hidden"
+    ARCHIVED = "archived", "Archived"
