@@ -18,7 +18,9 @@ class Fleet(models.Model):
         choices=FleetStatus.choices,
         default=FleetStatus.ACTIVE,
     )
+
     private = models.BooleanField(default=False)
+    favorited = models.BooleanField(default=False)
 
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -46,6 +48,8 @@ class Fleet(models.Model):
     )
 
     labels = models.ManyToManyField("FleetLabel", related_name="fleets", blank=True)
+    tags = models.ManyToManyField("FleetTag", related_name="fleets", blank=True)
+
     threads = models.ManyToManyField(
         "FleetThread", related_name="fleet_threads", blank=True
     )
@@ -64,6 +68,25 @@ class Fleet(models.Model):
 class FleetLabel(models.Model):
     """
     Represents a label for a Fleet.
+    """
+
+    name = models.CharField(max_length=100, unique=True)
+    friendly_name = models.CharField(max_length=100)
+    description = models.CharField(max_length=280, blank=True)
+    color = models.CharField(max_length=7, default="#000000")
+
+    meta = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        indexes = []
+
+    def __str__(self):
+        return self.name
+
+
+class FleetTag(models.Model):
+    """
+    Represents a tag for a Fleet.
     """
 
     name = models.CharField(max_length=100, unique=True)
