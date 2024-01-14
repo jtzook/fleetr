@@ -35,13 +35,14 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    "fleets.apps.FleetsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "fleets.apps.FleetsConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
