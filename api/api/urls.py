@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from .views import RegistrationView
+
 """
 The following URLs are built in to Django's auth app:
 
@@ -29,10 +31,12 @@ The following URLs are built in to Django's auth app:
     users/reset/<uidb64>/<token>/ [name='password_reset_confirm']
     users/reset/done/ [name='password_reset_complete']
 
+-> Note that user registration is not included in Django's auth app
 """
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("users/register", RegistrationView.as_view(), name="register"),
     path("users/", include("django.contrib.auth.urls")),
     path("fleets/", include("fleets.urls")),
 ]
