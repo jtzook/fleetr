@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <NuxtWelcome /> -->
-    hi
+    <AppAlert>AppAlert component</AppAlert>
   </div>
 </template>
 
