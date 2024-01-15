@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <h1>Welcome to the homepage</h1>
-    <AppAlert> This is an auto-imported component </AppAlert>
-  </div>
+  <header>
+    <nav>
+      <ul>
+        <li><NuxtLink to="/register">Register</NuxtLink></li>
+      </ul>
+    </nav>
+  </header>
 </template>
