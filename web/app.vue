@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <NuxtPage />
   </div>
 </template>
@@ -15,3 +15,7 @@ onMounted(() => {
   }
 })
 </script>
+
+<style>
+@import url('~/assets/css/main.css');
+</style>
