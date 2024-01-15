@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <NuxtWelcome /> -->
-    <AppAlert>AppAlert component</AppAlert>
+    <NuxtPage />
   </div>
 </template>
 
