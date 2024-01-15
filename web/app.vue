@@ -5,13 +5,9 @@
 </template>
 
 <script setup lang="ts">
-const appConfig = useAppConfig()
-
-console.log(appConfig.theme)
+const { title } = useAppConfig()
 
 onMounted(() => {
-  if (appConfig.title) {
-    document.title = appConfig.title
-  }
+  document.title = title
 })
 </script>
