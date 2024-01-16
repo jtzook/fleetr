@@ -1,13 +1,22 @@
 <template>
-  <div class="app">
+  <Head>
+    <Title>fleets</Title>
+  </Head>
+
+  <main class="app" :style="appStyles">
     <NuxtPage />
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
-const { title } = useAppConfig()
+const {
+  theme: {
+    colors: { background: backgroundColor, textPrimary: color },
+  },
+} = useAppConfig()
 
-onMounted(() => {
-  document.title = title
-})
+const appStyles = {
+  backgroundColor,
+  color,
+}
 </script>

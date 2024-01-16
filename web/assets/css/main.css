@@ -3,15 +3,16 @@ html, body {
     padding: 0;    
     height: 100%;  
     width: 100%;   
-    overflow: hidden; /* Prevents scrollbars on the body */
+    overflow: hidden; /* so the scrollbar doesn't appear */
 }
 
 .app {
-    display: flex;          
-    justify-content: center; 
-    align-items: center;     
-    height: 100vh;           
-    width: 100vw;            
-    background-color: #32a852; 
-    box-sizing: border-box;  /* Includes padding and border in the element's total width and height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
 }
