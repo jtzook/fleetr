@@ -19,8 +19,8 @@ export default defineNuxtConfig({
     prefix: '',
     /**
      * Directory that the components lives in.
-     * @default "./components/ui"
+     * @default "./components"
      */
-    componentDir: './components/ui',
+    componentDir: './components',
   },
 })
