@@ -4,6 +4,7 @@
   </Head>
 
   <main class="app" :style="appStyles">
+    <!-- <NuxtLoadingIndicator /> -->
     <NuxtPage />
   </main>
 </template>
