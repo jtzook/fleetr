@@ -10,15 +10,15 @@
 </template>
 
 <script setup lang="ts">
-const {
-  theme: {
-    colors: { background: backgroundColor, textPrimary: color },
-  },
-} = useAppConfig()
+// const {
+//   theme: {
+//     colors: { background: backgroundColor, textPrimary: color },
+//   },
+// } = useAppConfig()
 
 const appStyles = {
-  backgroundColor,
-  color,
+  // backgroundColor,
+  // color,
 }
 </script>
 
