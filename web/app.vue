@@ -3,18 +3,18 @@
     <Title>fleets</Title>
   </Head>
 
-  <main class="app" :style="appStyles">
+  <main class="app dark" :style="appStyles">
     <!-- <NuxtLoadingIndicator /> -->
     <NuxtPage />
   </main>
 </template>
 
 <script setup lang="ts">
-// const {
-//   theme: {
-//     colors: { background: backgroundColor, textPrimary: color },
-//   },
-// } = useAppConfig()
+const {
+  theme: {
+    colors: { background: backgroundColor, textPrimary: color },
+  },
+} = useAppConfig()
 
 const appStyles = {
   // backgroundColor,
