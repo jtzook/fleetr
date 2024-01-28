@@ -7,7 +7,7 @@ html, body {
   padding: 0;    
   height: 100%;  
   width: 100%;   
-  overflow: hidden; /* so the scrollbar doesn't appear */
+  overflow: hidden;  /* so the scrollbar doesn't appear */
 }
 
 .app {
@@ -55,9 +55,9 @@ html, body {
     --ring:224 71.4% 4.1%;
     --radius: 0.5rem;
   }
-   
+
   .dark {
-    --background: 138 100% 7%;
+    --background: 138 100% 5%;
     --foreground: 60 30% 90%;
   
     --card: 138 85% 20%;
