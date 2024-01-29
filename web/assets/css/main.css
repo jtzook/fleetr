@@ -10,20 +10,6 @@ html, body {
   overflow: hidden;  /* so the scrollbar doesn't appear */
 }
 
-.app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
