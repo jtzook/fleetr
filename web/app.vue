@@ -8,8 +8,7 @@
       class="flex items-center justify-center w-full xs:w-11/12 sm:w-10/12 md:w-9/12 max-w-3xl"
     >
       <NuxtLoadingIndicator />
-      <!-- <NuxtPage /> -->
-      hi
+      <NuxtPage />
     </main>
   </div>
 </template>
@@ -20,9 +19,6 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 
 <style>
 .app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   width: 100vw;
   box-sizing: border-box;

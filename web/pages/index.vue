@@ -1,18 +1,16 @@
 <template>
-  <div class="space-y-2">
+  <div class="flex flex-col items-center justify-center h-full">
     <Logo />
-    <div class="flex h-14 space-x-4 items-center text-lg">
-      <NuxtLink to="/register">
-        <Button class="w-20">register</Button>
-      </NuxtLink>
-      <Separator orientation="vertical" />
-      <Button class="w-20">login</Button>
-    </div>
+    <h2>welcome to fleetr</h2>
+    <NuxtLink to="/register">
+      <PButton class="w-20">register</PButton>
+    </NuxtLink>
+    <PButton class="w-20">login</PButton>
+    <PButton label="Check" icon="pi pi-check" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Separator } from '~/components/ui/separator'
-import { Button } from '~/components/ui/button'
+// import { Button } from '~/components/ui/button'
 import Logo from '~/components/ui/logo/Logo.vue'
 </script>
