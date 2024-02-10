@@ -4,16 +4,9 @@
   </Head>
 
   <div class="app dark">
-    <!-- <header>
-      <div>
-        <div class="m-4">
-          <NuxtLink to="/">fleetr</NuxtLink>
-        </div>
-        <Separator class="" />
-      </div>
-    </header> -->
-
-    <main class="w-full xs:w-11/12 sm:w-10/12 md:w-9/12 max-w-3xl">
+    <main
+      class="flex items-center justify-center w-full xs:w-11/12 sm:w-10/12 md:w-9/12 max-w-3xl"
+    >
       <NuxtLoadingIndicator />
       <NuxtPage />
     </main>

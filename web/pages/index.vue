@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col items-center space-y-2">
+  <div class="space-y-2">
     <Logo />
-    <div class="flex h-14 space-x-4 items-center justify-center text-lg">
+    <div class="flex h-14 space-x-4 items-center text-lg">
       <NuxtLink to="/register">
         <Button class="w-20">register</Button>
       </NuxtLink>
