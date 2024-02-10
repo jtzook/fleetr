@@ -8,13 +8,14 @@
       class="flex items-center justify-center w-full xs:w-11/12 sm:w-10/12 md:w-9/12 max-w-3xl"
     >
       <NuxtLoadingIndicator />
-      <NuxtPage />
+      <!-- <NuxtPage /> -->
+      hi
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Separator } from '@/components/ui/separator'
+import 'primevue/resources/themes/aura-light-green/theme.css'
 </script>
 
 <style>

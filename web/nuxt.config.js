@@ -1,8 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt'],
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'nuxt-primevue'],
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/main.css',
+    'primevue/resources/themes/aura-light-green/theme.css'
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -12,6 +15,7 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
   },
+  primevue: {},
   shadcn: {
     /**
      * Prefix for all the imported components
