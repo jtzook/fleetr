@@ -1,11 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'nuxt-primevue'],
+  modules: [
+    'nuxt-primevue',
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+  ],
   devtools: { enabled: true },
   css: [
-    // '~/assets/css/main.css',
-    'primevue/resources/themes/aura-light-green/theme.css'
+    'primevue/resources/themes/aura-light-green/theme.css',
+    '~/assets/css/main.css',
   ],
   postcss: {
     plugins: {
@@ -23,6 +27,7 @@ export default defineNuxtConfig({
       prefix: 'P',
       include: ['Button']
     },
+    cssLayerOrder: 'reset,primevue'
   },
   shadcn: {
     /**
@@ -34,5 +39,18 @@ export default defineNuxtConfig({
      * @default "./components"
      */
     componentDir: './components',
+  },
+  tailwindcss: {
+    // Adjust this path as necessary if you have a custom Tailwind config file
+    cssPath: '~/assets/css/main.css',
+    configPath: 'tailwind.config.js',
+    // This ensures Tailwind doesn't purge CSS from PrimeVue components
+    exposeConfig: false,
+    config: {
+      // Add any Tailwind configuration here, for example to extend themes or add plugins
+      safelist: [
+        // List specific classes you want to ensure are not purged, especially those dynamically used in your components
+      ],
+    },
   },
 })

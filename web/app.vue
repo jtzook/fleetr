@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import 'primevue/resources/themes/aura-light-green/theme.css'
+import "primevue/resources/themes/aura-light-green/theme.css";
 </script>
 
 <style>
@@ -22,7 +22,7 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
   height: 100vh;
   width: 100vw;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1rem;
 
   background: hsl(var(--background));

@@ -1,4 +1,12 @@
 services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8000:8000
+
   db:
     image: postgres:13.1
     restart: always
