@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  api:
+    volumes:
+      - ./api:/app
+
+  db:
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
