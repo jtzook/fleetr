@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-const twClasses = ["text-7xl sm:text-8xl md:text-9xl", "font-bold"];
+const twClasses = ["text-7xl sm:text-8xl md:text-9xl", "font-bold", "m-6"];
 </script>
 
 <style>
