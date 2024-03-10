@@ -3,10 +3,8 @@
     <Title>fleets</Title>
   </Head>
 
-  <div class="app dark">
-    <main
-      class="flex items-center justify-center w-full xs:w-11/12 sm:w-10/12 md:w-9/12 max-w-3xl"
-    >
+  <div class="app">
+    <main class="h-full">
       <NuxtLoadingIndicator />
       <NuxtPage />
     </main>

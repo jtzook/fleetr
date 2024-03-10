@@ -1,16 +1,14 @@
-/* @tailwind base; */
 @tailwind utilities;
-/* @tailwind components; */
 
-html, body {
-  margin: 0;     
-  padding: 0;    
-  height: 100%;  
-  width: 100%;   
-  overflow: hidden;  /* so the scrollbar doesn't appear */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* so the scrollbar doesn't appear */
 }
 
-/* @layer base { */
 :root {
   --background: 138 100% 6%;
   --foreground: 60 30% 85%;
@@ -40,12 +38,10 @@ html, body {
   --input: 138 45% 25%;
   --ring: 138 50% 30%;
 }
-/* } */
-
 
 /* Reset CSS */
 @layer reset {
   button,
-  input {}
+  input {
+  }
 }
-
