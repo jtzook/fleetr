@@ -1,6 +1,33 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  ssr: false,
+
+import type { NuxtConfig } from "nuxt/schema"
+
+const nuxtConfig: NuxtConfig & {
+  primevue: {
+    ripple: boolean
+    usePrimeVue: boolean
+    components: {
+      prefix: string
+      include: string[]
+    }
+    cssLayerOrder: string
+  }
+} & {
+  shadcn: {
+    prefix: string
+    componentDir: string
+  }
+} & {
+  tailwindcss: {
+    cssPath: string
+    configPath: string
+    exposeConfig: boolean
+    config: {
+      safelist: string[]
+    }
+  }
+
+} = ({
   modules: [
     'nuxt-primevue',
     '@nuxtjs/tailwindcss',
@@ -60,3 +87,5 @@ export default defineNuxtConfig({
     }
   }
 })
+
+export default nuxtConfig
