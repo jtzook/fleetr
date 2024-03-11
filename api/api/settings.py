@@ -31,6 +31,10 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
+CORS_ALLOWED_ORIGINS = [
+   os.environ.get("WEB_BASE_URL", "http://localhost:3000"),
+]
+
 
 # Application definition
 
@@ -43,11 +47,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "fleets.apps.FleetsConfig",
     "users.apps.UsersConfig",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
