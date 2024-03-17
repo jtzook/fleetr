@@ -3,12 +3,10 @@
     <Title>fleets</Title>
   </Head>
 
-  <div class="app">
-    <main class="h-full">
-      <NuxtLoadingIndicator />
-      <NuxtPage />
-    </main>
-  </div>
+  <main>
+    <NuxtLoadingIndicator />
+    <NuxtPage />
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -16,12 +14,12 @@ import "primevue/resources/themes/aura-light-green/theme.css";
 </script>
 
 <style>
-.app {
+main {
   height: 100vh;
   width: 100vw;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  font-size: 1rem;
+  padding: 1rem;
 
   background: hsl(var(--background));
   color: hsl(var(--foreground));
@@ -55,4 +53,3 @@ header > div {
   filter: blur(1rem);
 }
 </style>
-```
