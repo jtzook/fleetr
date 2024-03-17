@@ -1,5 +1,7 @@
 <template>
-  <h1 class="logo" :class="twClasses">fleetr</h1>
+  <div class="flex justify-center items-center">
+    <h1 class="logo" :class="twClasses">fleetr</h1>
+  </div>
 </template>
 
 <script setup lang="ts">
