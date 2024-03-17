@@ -2,4 +2,4 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the api index.")
+    return HttpResponse("まず、AWSサービスヘルスダッシュボードを確認して、AWS Elastic Beanstalkや関連サービスに進行中の問題がないかを確認してください。AWSが自身の側に問題があると認識している場合は、ダッシュボードで解決の進行状況を監視することが重要です。また、CloudWatchのメトリクスとログを検討して、異常や、劣化状態のアラームと一致するパターンを特定してください。CPU使用率の高さ、メモリリーク、またはエラー率など、アプリケーションレベルの問題を示す可能性があります\n\nまず、AWSサービスヘルスダッシュボードを確認して、AWS Elastic Beanstalkや関連サービスに進行中の問題がないかを確認してください。AWSが自身の側に問題があると認識している場合は、ダッシュボードで解決の進行状況を監視することが重要です。また、CloudWatchのメトリクスとログを検討して、異常や、劣化状態のアラームと一致するパターンを特定してください。CPU使用率の高さ、メモリリーク、またはエラー率など、アプリケーションレベルの問題を示す可能性があります。")

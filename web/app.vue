@@ -21,8 +21,8 @@ main {
   font-family: "Poppins", sans-serif;
   padding: 1rem;
 
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
+  /* background: hsl(var(--background));
+  color: hsl(var(--foreground)); */
 }
 
 header {
